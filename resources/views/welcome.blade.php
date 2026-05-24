@@ -25,9 +25,9 @@
 
 
 <!-- Academics Section -->
-<section id="academics" class="py-16 bg-slate-50 relative">
+<section id="academics" class="pt-16 pb-12 bg-slate-50 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center max-w-3xl mx-auto mb-20 space-y-6">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
             <div class="inline-flex items-center justify-center gap-3 bg-white px-6 py-2 rounded-full shadow-sm mb-4">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto object-contain">
                 <span class="text-indigo-600 font-semibold tracking-wider text-sm uppercase">Academics</span>
@@ -35,8 +35,12 @@
             <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">Welcome to the Gyanoday Family</h2>
             <p class="text-xl text-slate-600 font-light">The divine destination for learners, where attaining Moksh is the ultimate goal of life.</p>
         </div>
+    </div>
+</section>
 
-        <!-- Our Campus Slider Section -->
+<!-- Our Campus Slider Section -->
+<section id="campus" class="pt-12 pb-16 bg-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div x-data="campusCarousel()" class="relative w-full max-w-6xl mx-auto overflow-hidden pb-12">
             <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">Our Campus</h3>
             <div class="relative flex items-center justify-center h-[28rem] md:h-[36rem]">
@@ -66,7 +70,7 @@
 </section>
 
 <!-- About Us Section -->
-<section id="about" class="bg-white relative overflow-hidden py-16">
+<section id="about" class="bg-slate-50 relative overflow-hidden py-16">
     <div class="absolute top-0 right-0 w-96 h-96 bg-amber-50 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 opacity-80"></div>
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 opacity-80"></div>
     
@@ -86,6 +90,9 @@
                     <img src="{{ asset('images/achivers/ach1.jpeg') }}" alt="Students learning" class="w-full h-auto object-contain rounded-3xl">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
                 </div>
+                <p class="text-xl text-center text-slate-800 leading-relaxed font-light mb-2">
+                    Anurag Tandon
+                </p>
                 <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-orange-100 rounded-full z-0 animate-pulse"></div>
                 <div class="absolute -top-8 -right-8 w-24 h-24 bg-indigo-100 rounded-full z-0 delay-150 animate-pulse"></div>
             </div>
@@ -166,12 +173,12 @@
 </section>
 
 <!-- Call to Action -->
-<section id="contact" class="py-32 relative overflow-hidden">
-    <div class="absolute inset-0 bg-slate-900 z-0"></div>
-    <div class="absolute inset-0 z-0 bg-[url('{{ asset("images/campus3.png") }}')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-0"></div>
+<section id="contact" class="py-8 relative overflow-hidden">
+    <!-- <div class="absolute inset-0 bg-slate-900 z-0"></div> -->
+    <!-- <div class="absolute inset-0 z-0 bg-[url('{{ asset("images/campus3.png") }}')] bg-cover bg-center opacity-20 mix-blend-overlay"></div> -->
+    <!-- <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent z-0"></div> -->
     
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10">
+    <!-- <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10">
         <h2 class="text-5xl md:text-6xl font-extrabold text-white font-['Outfit'] drop-shadow-xl">Begin Your Journey With Us</h2>
         <p class="text-xl md:text-2xl text-slate-300 font-light max-w-2xl mx-auto drop-shadow-md">Admissions are now open for the upcoming academic year. Give your child the gift of holistic education.</p>
         <div class="flex flex-col sm:flex-row justify-center gap-6 pt-8">
@@ -182,7 +189,7 @@
                 Contact Admissions
             </button>
         </div>
-    </div>
+    </div> -->
 </section>
 
 <script>

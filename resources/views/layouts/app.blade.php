@@ -37,8 +37,8 @@
             <div class="flex items-center gap-3">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto object-contain bg-white rounded-full p-1 shadow-md">
                 <div>
-                    <h1 class="text-2xl font-bold text-white leading-tight">Gyanoday Vidya Niketan - master</h1>
-                    <p class="text-sm text-orange-100">A WAY OF SALVATION</p>
+                    <h1 class="text-2xl font-bold text-white leading-tight">Gyanoday Vidya Niketan</h1>
+                    <p class="text-sm text-right text-orange-100">A WAY OF SALVATION</p>
                 </div>
             </div>
             
@@ -68,7 +68,6 @@
                 </div>
                 <div class="border-t border-slate-800/50 pt-8 flex flex-col md:flex-row justify-between items-center">
                     <p class="text-sm text-slate-500">&copy; {{ date('Y') }} Gyanoday Vidya Niketan. All rights reserved.</p>
-                    <p class="text-sm text-slate-500 mt-2 md:mt-0">A Way Of Salvation</p>
                 </div>
             </div>
         </div>
