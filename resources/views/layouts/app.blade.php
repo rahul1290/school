@@ -37,7 +37,7 @@
             <div class="flex items-center gap-3">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto object-contain bg-white rounded-full p-1 shadow-md">
                 <div>
-                    <h1 class="text-2xl font-bold text-white leading-tight">Gyanoday Vidya Niketan</h1>
+                    <h1 class="text-2xl font-bold text-white leading-tight">Gyanoday Vidya Niketan - master</h1>
                     <p class="text-sm text-orange-100">A WAY OF SALVATION</p>
                 </div>
             </div>
