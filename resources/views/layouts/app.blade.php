@@ -31,6 +31,11 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col relative pb-20 bg-slate-50 selection:bg-indigo-500 selection:text-white">
     
+    <!-- Global Background Watermark -->
+    <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.03] print:hidden">
+        <img src="{{ asset('images/logo.png') }}" alt="Background Watermark" class="w-[90%] md:w-[60%] max-w-4xl h-auto object-contain grayscale">
+    </div>
+
     <!-- Header / Bottom Nav with Glassmorphism -->
     <header class="hidden md:block fixed bottom-0 left-0 w-full z-50 bg-gradient-to-r from-orange-500 to-red-500 border-t border-orange-600 shadow-xl transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -53,7 +58,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow relative z-10">
         @yield('content')
     </main>
 
