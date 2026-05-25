@@ -18,23 +18,11 @@
             </div>
         </div>
 
-        @if(session('success'))
-            <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative print:hidden" role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        @endif
-        @if($errors->any())
-            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative print:hidden" role="alert">
-                <ul class="list-disc list-inside">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        
+        
 
-        <form action="{{ route('admissions.store') }}" method="POST" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
-            @csrf
+        <form action="#" method="POST" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
+            
             
             <!-- Background Logo -->
             <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03] print-watermark-container">
@@ -48,89 +36,57 @@
                     <div class="md:col-span-2 print:col-span-2 flex gap-4">
                         <div class="flex-grow">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="name" value="{{ $admission->name }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                         <div class="w-1/3">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class <span class="text-red-500">*</span></label>
-                            <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                                <option value="">Select Class</option>
-                                <option value="Nursery">Nursery</option>
-                                <option value="LKG">LKG</option>
-                                <option value="UKG">UKG</option>
-                                <option value="1">1st</option>
-                                <option value="2">2nd</option>
-                                <option value="3">3rd</option>
-                                <option value="4">4th</option>
-                                <option value="5">5th</option>
-                                <option value="6">6th</option>
-                                <option value="7">7th</option>
-                                <option value="8">8th</option>
-                                <option value="9">9th</option>
-                                <option value="10">10th</option>
-                                <option value="11">11th</option>
-                                <option value="12">12th</option>
-                            </select>
+                            <input type="text" value="{{ $admission->class }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                         </div>
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth <span class="text-red-500">*</span></label>
-                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="date" name="dob" value="{{ $admission->dob }}" readonly id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">In words <span class="text-red-500">*</span></label>
-                        <input type="text" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="dob_words" value="{{ $admission->dob_words }}" id="dob_words" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Category <span class="text-red-500">*</span></label>
-                        <select name="category" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Category</option>
-                            <option value="General">General</option>
-                            <option value="OBC">OBC</option>
-                            <option value="SC">SC</option>
-                            <option value="ST">ST</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="text" value="{{ $admission->category }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste (जाति) <span class="text-red-500">*</span></label>
-                        <input type="text" name="caste" value="{{ old('caste') }}" placeholder="Enter Caste" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="caste" value="{{ $admission->caste }}" placeholder="Enter Caste" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Gender <span class="text-red-500">*</span></label>
-                        <select name="gender" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value=""></option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="text" value="{{ $admission->gender }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Nationality <span class="text-red-500">*</span></label>
-                        <select name="nationality" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="Indian">Indian</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="text" value="{{ $admission->nationality }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="aadhaar_no" value="{{ $admission->aadhaar_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID <span class="text-red-500">*</span></label>
-                        <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="apaar_id" value="{{ $admission->apaar_id }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="pen_no" value="{{ old('pen_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="pen_no" value="{{ $admission->pen_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Bank Account No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="bank_account_no" value="{{ $admission->bank_account_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -141,58 +97,25 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div class="md:col-span-2 print:col-span-2">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Previous School Detail Name</label>
-                        <input type="text" name="prev_school_name" value="{{ old('prev_school_name') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="prev_school_name" value="{{ $admission->prev_school_name }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class</label>
-                        <select name="prev_class" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Class</option>
-                            <option value="Nursery">Nursery</option>
-                            <option value="LKG">LKG</option>
-                            <option value="UKG">UKG</option>
-                            <option value="1">1st</option>
-                            <option value="2">2nd</option>
-                            <option value="3">3rd</option>
-                            <option value="4">4th</option>
-                            <option value="5">5th</option>
-                            <option value="6">6th</option>
-                            <option value="7">7th</option>
-                            <option value="8">8th</option>
-                            <option value="9">9th</option>
-                            <option value="10">10th</option>
-                            <option value="11">11th</option>
-                            <option value="12">12th</option>
-                        </select>
+                        <input type="text" value="{{ $admission->prev_class }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Year of Passing</label>
-                        <select name="prev_passing_year" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Year</option>
-                            @for($i = date('Y'); $i >= 2010; $i--)
-                                <option value="{{ $i }}">{{ $i }}</option>
-                            @endfor
-                        </select>
+                        <input type="text" value="{{ $admission->prev_passing_year }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Medium of Instruction</label>
-                        <select name="prev_medium" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Medium</option>
-                            <option value="English">English</option>
-                            <option value="Hindi">Hindi</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="text" value="{{ $admission->prev_medium }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">School Board</label>
-                        <select name="prev_board" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Board</option>
-                            <option value="CBSE">CBSE</option>
-                            <option value="State Board">State Board</option>
-                            <option value="NIOS">NIOS</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <input type="text" value="{{ $admission->prev_board }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                 </div>
             </div>
@@ -203,20 +126,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Father's Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="father_name" value="{{ old('father_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="father_name" value="{{ $admission->father_name }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" name="father_aadhaar" value="{{ old('father_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="father_aadhaar" value="{{ $admission->father_aadhaar }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
-                        <input type="text" name="father_occupation" value="{{ old('father_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="father_occupation" value="{{ $admission->father_occupation }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" name="father_mobile" value="{{ old('father_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="father_mobile" value="{{ $admission->father_mobile }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
                     <!-- Spacer / Divider -->
@@ -224,20 +147,20 @@
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mother's Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="mother_name" value="{{ old('mother_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="mother_name" value="{{ $admission->mother_name }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" name="mother_aadhaar" value="{{ old('mother_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="mother_aadhaar" value="{{ $admission->mother_aadhaar }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
-                        <input type="text" name="mother_occupation" value="{{ old('mother_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="mother_occupation" value="{{ $admission->mother_occupation }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" name="mother_mobile" value="{{ old('mother_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="mother_mobile" value="{{ $admission->mother_mobile }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -249,56 +172,18 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Current Address <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" name="address_line_1" value="{{ old('address_line_1') }}" placeholder="Line 1" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
-                            <input type="text" name="address_line_2" value="{{ old('address_line_2') }}" placeholder="Line 2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="address_line_1" value="{{ $admission->address_line_1 }}" placeholder="Line 1" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="address_line_2" value="{{ $admission->address_line_2 }}" placeholder="Line 2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">State <span class="text-red-500">*</span></label>
-                            <select name="state" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                                <option value="">Select State</option>
-                                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                <option value="Assam">Assam</option>
-                                <option value="Bihar">Bihar</option>
-                                <option value="Chhattisgarh">Chhattisgarh</option>
-                                <option value="Goa">Goa</option>
-                                <option value="Gujarat">Gujarat</option>
-                                <option value="Haryana">Haryana</option>
-                                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                <option value="Jharkhand">Jharkhand</option>
-                                <option value="Karnataka">Karnataka</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                <option value="Maharashtra">Maharashtra</option>
-                                <option value="Manipur">Manipur</option>
-                                <option value="Meghalaya">Meghalaya</option>
-                                <option value="Mizoram">Mizoram</option>
-                                <option value="Nagaland">Nagaland</option>
-                                <option value="Odisha">Odisha</option>
-                                <option value="Punjab">Punjab</option>
-                                <option value="Rajasthan">Rajasthan</option>
-                                <option value="Sikkim">Sikkim</option>
-                                <option value="Tamil Nadu">Tamil Nadu</option>
-                                <option value="Telangana">Telangana</option>
-                                <option value="Tripura">Tripura</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                <option value="Uttarakhand">Uttarakhand</option>
-                                <option value="West Bengal">West Bengal</option>
-                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                <option value="Chandigarh">Chandigarh</option>
-                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                                <option value="Delhi">Delhi</option>
-                                <option value="Lakshadweep">Lakshadweep</option>
-                                <option value="Puducherry">Puducherry</option>
-                                <option value="Ladakh">Ladakh</option>
-                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                            </select>
+                            <input type="text" value="{{ $admission->state }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Pin Code <span class="text-red-500">*</span></label>
-                            <input type="text" name="pin_code" value="{{ old('pin_code') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="pin_code" value="{{ $admission->pin_code }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                     </div>
                 </div>
@@ -310,7 +195,7 @@
                 
                 <div class="mb-10 print:mb-6">
                     <label class="flex items-start gap-3">
-                        <input type="checkbox" required class="mt-1 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded print:border-slate-600 print:appearance-auto">
+                        <input type="checkbox" readonly class="mt-1 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded print:border-slate-600 print:appearance-auto">
                         <span class="text-slate-700 leading-relaxed text-sm md:text-base print:text-sm">
                             I hereby declare that all the information provided above is true and correct to the best of my knowledge and belief. If any information is found to be false, the school authorities reserve the right to cancel the admission.
                         </span>
@@ -359,11 +244,11 @@
                     <div class="flex flex-wrap items-center gap-6">
                         <span class="font-bold text-slate-800 print:text-sm">Admission status:</span>
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto">
+                            <input type="checkbox" {{ $admission->status === 'Approved' ? 'checked' : '' }} disabled class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto">
                             <span class="text-slate-700 font-medium print:text-sm">Approved</span>
                         </label>
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto">
+                            <input type="checkbox" {{ $admission->status === 'Rejected' ? 'checked' : '' }} disabled class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto">
                             <span class="text-slate-700 font-medium print:text-sm">Rejected</span>
                         </label>
                     </div>
@@ -371,17 +256,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-6">
                         <div>
                             <label class="block font-bold text-slate-800 mb-1 print:text-sm">Admission No.</label>
-                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6 px-2 font-medium" style="display:flex; align-items:flex-end;">{{ $admission->admission_no }}</div>
                         </div>
                         <div>
                             <label class="block font-bold text-slate-800 mb-1 print:text-sm">Date</label>
-                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6 px-2 font-medium" style="display:flex; align-items:flex-end;">{{ $admission->admission_date ? \Carbon\Carbon::parse($admission->admission_date)->format('d-m-Y') : '' }}</div>
                         </div>
                     </div>
 
                     <div>
                         <label class="block font-bold text-slate-800 mb-1 print:text-sm">Verified By</label>
-                        <div class="h-8 border-b-2 border-slate-400 w-full md:w-1/2 print:border-slate-800 print:h-6"></div>
+                        <div class="h-8 border-b-2 border-slate-400 w-full md:w-1/2 print:border-slate-800 print:h-6 px-2 font-medium" style="display:flex; align-items:flex-end;">{{ $admission->verified_by }}</div>
                     </div>
 
                     <div class="flex justify-end mt-20 pt-20 print:mt-20 print:pt-20">
@@ -392,7 +277,7 @@
 
             <!-- Action Buttons -->
             <div class="relative z-10 p-8 bg-slate-100 flex flex-col sm:flex-row justify-center gap-4 print:hidden">
-                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto text-lg">
+                <button type="submit" style="display:none;" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto text-lg">
                     Submit Application
                 </button>
                 <button type="button" onclick="window.print()" class="px-8 py-3 bg-white border-2 border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all w-full sm:w-auto flex items-center justify-center gap-2 text-lg">
@@ -588,3 +473,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @endsection
+
+<script>window.onload = function() { window.print(); }</script>

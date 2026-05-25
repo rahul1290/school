@@ -9,7 +9,7 @@
         </a>
 
         <!-- About -->
-        <a href="{{ url('/#about') }}" class="flex flex-col items-center justify-center w-full h-full text-orange-100 hover:text-white transition-colors group">
+        <a href="{{ url('/about-us') }}" class="flex flex-col items-center justify-center w-full h-full text-orange-100 hover:text-white transition-colors group">
             <svg class="w-6 h-6 mb-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
@@ -35,7 +35,7 @@
         </a>
 
         <!-- Contact -->
-        <a href="{{ url('/#contact') }}" class="flex flex-col items-center justify-center w-full h-full text-orange-100 hover:text-white transition-colors group">
+        <a href="{{ url('/contact') }}" class="flex flex-col items-center justify-center w-full h-full text-orange-100 hover:text-white transition-colors group">
             <svg class="w-6 h-6 mb-1 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>

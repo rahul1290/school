@@ -48,10 +48,48 @@ class AdmissionController extends Controller
             'admission_no' => 'nullable|string|max:255',
             'admission_date' => 'nullable|date',
             'verified_by' => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'class' => 'required|string|max:255',
+            'dob' => 'required|date',
+            'dob_words' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'caste' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'nationality' => 'required|string|max:255',
+            'aadhaar_no' => 'required|string|max:255',
+            'apaar_id' => 'required|string|max:255',
+            'pen_no' => 'required|string|max:255',
+            'bank_account_no' => 'required|string|max:255',
+            
+            'prev_school_name' => 'nullable|string|max:255',
+            'prev_class' => 'nullable|string|max:255',
+            'prev_passing_year' => 'nullable|string|max:255',
+            'prev_medium' => 'nullable|string|max:255',
+            'prev_board' => 'nullable|string|max:255',
+            
+            'father_name' => 'required|string|max:255',
+            'father_aadhaar' => 'required|string|max:255',
+            'father_occupation' => 'required|string|max:255',
+            'father_mobile' => 'required|string|max:255',
+            
+            'mother_name' => 'required|string|max:255',
+            'mother_aadhaar' => 'required|string|max:255',
+            'mother_occupation' => 'required|string|max:255',
+            'mother_mobile' => 'required|string|max:255',
+            
+            'address_line_1' => 'required|string|max:255',
+            'address_line_2' => 'nullable|string|max:255',
+            'state' => 'required|string|max:255',
+            'pin_code' => 'required|string|max:255',
         ]);
 
         $admission->update($validated);
 
         return redirect()->route('admin.admissions.index')->with('success', 'Admission updated successfully.');
+    }
+
+    public function print(Admission $admission)
+    {
+        return view('admin.admissions.print', compact('admission'));
     }
 }

@@ -49,10 +49,10 @@
             
             <nav class="hidden md:flex gap-8">
                 <a href="{{ url('/') }}" class="text-white hover:text-orange-200 font-medium transition-colors">Home</a>
-                <a href="{{ url('/#about') }}" class="text-white hover:text-orange-200 font-medium transition-colors">About Us</a>
+                <a href="{{ url('/about-us') }}" class="text-white hover:text-orange-200 font-medium transition-colors">About Us</a>
                 <a href="{{ url('/#academics') }}" class="text-white hover:text-orange-200 font-medium transition-colors">Academics</a>
                 <a href="{{ url('/admission') }}" class="text-white hover:text-orange-200 font-bold transition-colors">Admission</a>
-                <a href="{{ url('/#contact') }}" class="text-white hover:text-orange-200 font-medium transition-colors">Contact</a>
+                <a href="{{ url('/contact') }}" class="text-white hover:text-orange-200 font-medium transition-colors">Contact</a>
             </nav>
         </div>
     </header>
