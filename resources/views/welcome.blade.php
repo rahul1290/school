@@ -204,7 +204,7 @@
     function campusCarousel() {
         return {
             active: 0,
-            images: {!! isset($sections['campus']) ? json_encode($sections['campus']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
+            images: {!! isset($sections['campus']) ? json_encode($sections['campus']->images->map(function($img) { return asset($img->image_path); })->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
@@ -216,7 +216,7 @@
         return {
             active: 0,
             interval: null,
-            images: {!! isset($sections['achievers']) ? json_encode($sections['achievers']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
+            images: {!! isset($sections['achievers']) ? json_encode($sections['achievers']->images->map(function($img) { return asset($img->image_path); })->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
@@ -231,7 +231,7 @@
         return {
             active: 0,
             interval: null,
-            images: {!! isset($sections['sports']) ? json_encode($sections['sports']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
+            images: {!! isset($sections['sports']) ? json_encode($sections['sports']->images->map(function($img) { return asset($img->image_path); })->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
