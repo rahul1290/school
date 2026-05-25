@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="bg-slate-50 py-12 pt-28 print:pt-0 print:py-0 print:bg-transparent min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0">
         
         <!-- Header -->
         <div class="flex flex-col items-center justify-center text-center mb-10 print:mb-2 gap-2 print:gap-0">
@@ -15,7 +15,23 @@
             <p class="text-xl text-slate-600 print:text-sm mt-2 print:mt-0">Academic Session 2026-27</p>
         </div>
 
-        <form onsubmit="event.preventDefault(); alert('Form submitted successfully!');" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
+        @if(session('success'))
+            <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative print:hidden" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative print:hidden" role="alert">
+                <ul class="list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action="{{ route('admissions.store') }}" method="POST" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
+            @csrf
             
             <!-- Background Logo -->
             <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03] print-watermark-container">
@@ -25,15 +41,15 @@
             <!-- 1. Student Information -->
             <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">1. Student Information</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
-                    <div class="md:col-span-2 print:col-span-2 flex gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 print:grid-cols-4 print:gap-4">
+                    <div class="md:col-span-2 lg:col-span-2 print:col-span-2 flex gap-4">
                         <div class="flex-grow">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name <span class="text-red-500">*</span></label>
-                            <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                         <div class="w-1/3">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class <span class="text-red-500">*</span></label>
-                            <select required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                            <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                                 <option value="">Select Class</option>
                                 <option value="Nursery">Nursery</option>
                                 <option value="LKG">LKG</option>
@@ -56,16 +72,16 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth <span class="text-red-500">*</span></label>
-                        <input type="date" required id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">In words <span class="text-red-500">*</span></label>
-                        <input type="text" id="dob_words" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Category <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="category" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Category</option>
                             <option value="General">General</option>
                             <option value="OBC">OBC</option>
@@ -76,12 +92,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste (जाति) <span class="text-red-500">*</span></label>
-                        <input type="text" placeholder="Enter Caste" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="caste" value="{{ old('caste') }}" placeholder="Enter Caste" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Gender <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="gender" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value=""></option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -90,7 +106,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Nationality <span class="text-red-500">*</span></label>
-                        <select required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="nationality" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="Indian">Indian</option>
                             <option value="Other">Other</option>
                         </select>
@@ -98,20 +114,20 @@
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No. <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="pen_no" value="{{ old('pen_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Bank Account No. <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -119,15 +135,15 @@
             <!-- 2. Previous School Details -->
             <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">2. Previous School Academic Details</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
-                    <div class="md:col-span-2 print:col-span-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 print:grid-cols-3 print:gap-4">
+                    <div class="md:col-span-2 lg:col-span-3 print:col-span-3">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Previous School Detail Name</label>
-                        <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="prev_school_name" value="{{ old('prev_school_name') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class</label>
-                        <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="prev_class" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Class</option>
                             <option value="Nursery">Nursery</option>
                             <option value="LKG">LKG</option>
@@ -148,7 +164,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Year of Passing</label>
-                        <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="prev_passing_year" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Year</option>
                             @for($i = date('Y'); $i >= 2010; $i--)
                                 <option value="{{ $i }}">{{ $i }}</option>
@@ -158,7 +174,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Medium of Instruction</label>
-                        <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="prev_medium" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Medium</option>
                             <option value="English">English</option>
                             <option value="Hindi">Hindi</option>
@@ -167,7 +183,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">School Board</label>
-                        <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                        <select name="prev_board" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Board</option>
                             <option value="CBSE">CBSE</option>
                             <option value="State Board">State Board</option>
@@ -181,44 +197,44 @@
             <!-- 3. Parent / Guardian Details -->
             <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">3. Parent / Guardian Details</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 print:grid-cols-4 print:gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Father's Name <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="father_name" value="{{ old('father_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="father_aadhaar" value="{{ old('father_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="father_occupation" value="{{ old('father_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="father_mobile" value="{{ old('father_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
                     <!-- Spacer / Divider -->
-                    <div class="md:col-span-2 print:col-span-2 border-t border-slate-100 my-2 print:my-0"></div>
+                    <div class="md:col-span-2 lg:col-span-4 print:col-span-4 border-t border-slate-100 my-2 print:my-0"></div>
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mother's Name <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="mother_name" value="{{ old('mother_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
-                        <input type="number" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="number" name="mother_aadhaar" value="{{ old('mother_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="mother_occupation" value="{{ old('mother_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="mother_mobile" value="{{ old('mother_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -229,21 +245,57 @@
                 <div class="space-y-6 print:space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Current Address <span class="text-red-500">*</span></label>
-                        <input type="text" required class="w-full px-4 py-2 mb-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none print:mb-2">
-                        <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 print:grid-cols-3 print:gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">City <span class="text-red-500">*</span></label>
-                            <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="address_line_1" value="{{ old('address_line_1') }}" placeholder="Line 1" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="address_line_2" value="{{ old('address_line_2') }}" placeholder="Line 2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">State <span class="text-red-500">*</span></label>
-                            <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <select name="state" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                                <option value="">Select State</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Pin Code <span class="text-red-500">*</span></label>
-                            <input type="text" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="pin_code" value="{{ old('pin_code') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                     </div>
                 </div>

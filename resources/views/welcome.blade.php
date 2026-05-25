@@ -14,11 +14,19 @@
     
     <!-- Hero Image -->
     <!-- <div class="relative h-[220px] sm:h-[350px] md:h-[500px] lg:h-[650px] xl:h-[750px]"> -->
+        @if(isset($sections['hero']) && $sections['hero']->images->count() > 0)
+        <img 
+            src="{{ asset($sections['hero']->images->first()->image_path) }}" 
+            alt="Welcome to Gyanoday Vidya Niketan"
+            class="w-full h-full object-cover object-center"
+        >
+        @else
         <img 
             src="{{ asset('images/slider1.png') }}" 
             alt="Welcome to Gyanoday Vidya Niketan"
             class="w-full h-full object-cover object-center"
         >
+        @endif
     <!-- </div> -->
 
 </section>
@@ -30,10 +38,10 @@
         <div class="text-center max-w-3xl mx-auto space-y-6">
             <div class="inline-flex items-center justify-center gap-3 bg-white px-6 py-2 rounded-full shadow-sm mb-4">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto object-contain">
-                <span class="text-indigo-600 font-semibold tracking-wider text-sm uppercase">Academics</span>
+                <span class="text-indigo-600 font-semibold tracking-wider text-sm uppercase">{{ $sections['academics']->subtitle_top ?? 'Academics' }}</span>
             </div>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">Welcome to the Gyanoday Family</h2>
-            <p class="text-xl text-slate-600 font-light">The divine destination for learners, where attaining Moksh is the ultimate goal of life.</p>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['academics']->title ?? 'Welcome to the Gyanoday Family' }}</h2>
+            <p class="text-xl text-slate-600 font-light">{{ $sections['academics']->subtitle_bottom ?? 'The divine destination for learners, where attaining Moksh is the ultimate goal of life.' }}</p>
         </div>
     </div>
 </section>
@@ -42,7 +50,7 @@
 <section id="campus" class="pt-12 pb-16 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div x-data="campusCarousel()" class="relative w-full max-w-6xl mx-auto overflow-hidden pb-12">
-            <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">Our Campus</h3>
+            <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">{{ $sections['campus']->title ?? 'Our Campus' }}</h3>
             <div class="relative flex items-center justify-center h-[28rem] md:h-[36rem]">
                 <template x-for="(img, index) in images" :key="index">
                     <div class="absolute h-full transition-all duration-700 ease-out rounded-3xl shadow-2xl overflow-hidden cursor-pointer"
@@ -104,9 +112,9 @@
 <section id="achievers" class="py-24 bg-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h3 class="text-orange-500 font-semibold tracking-wider uppercase">Celebrating Excellence</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">Navoday Achievers</h2>
-            <h6 class="text-sm md:text-base font-semibold text-gray-600">55 students selected in Navodaya vidyalaya</h6>
+            <h3 class="text-orange-500 font-semibold tracking-wider uppercase">{{ $sections['achievers']->subtitle_top ?? 'Celebrating Excellence' }}</h3>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['achievers']->title ?? 'Navoday Achievers' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['achievers']->subtitle_bottom ?? '55 students selected in Navodaya vidyalaya' }}</h6>
         </div>
 
         <div x-data="achieversCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
@@ -140,9 +148,9 @@
 <section id="sports" class="py-24 bg-slate-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h3 class="text-indigo-500 font-semibold tracking-wider uppercase">Active Lifestyle</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">Sport Activity</h2>
-            <h6 class="text-sm md:text-base font-semibold text-gray-600">Beyond the Classroom</h6>
+            <h3 class="text-indigo-500 font-semibold tracking-wider uppercase">{{ $sections['sports']->subtitle_top ?? 'Active Lifestyle' }}</h3>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['sports']->title ?? 'Sport Activity' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['sports']->subtitle_bottom ?? 'Beyond the Classroom' }}</h6>
         </div>
 
         <div x-data="sportsCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
@@ -196,12 +204,7 @@
     function campusCarousel() {
         return {
             active: 0,
-            images: [
-                '{{ asset("images/campus1.jpg") }}',
-                '{{ asset("images/campus2.jpg") }}',
-                '{{ asset("images/campus3.jpg") }}',
-                '{{ asset("images/campus4.jpg") }}',
-            ],
+            images: {!! isset($sections['campus']) ? json_encode($sections['campus']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
@@ -213,12 +216,7 @@
         return {
             active: 0,
             interval: null,
-            images: [
-                '{{ asset("images/students/img1.jpeg") }}',
-                '{{ asset("images/students/img1.jpeg") }}',
-                '{{ asset("images/students/img1.jpeg") }}',
-                '{{ asset("images/students/img1.jpeg") }}',
-            ],
+            images: {!! isset($sections['achievers']) ? json_encode($sections['achievers']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
@@ -233,11 +231,7 @@
         return {
             active: 0,
             interval: null,
-            images: [
-                '{{ asset("images/slider3.jpg") }}',
-                '{{ asset("images/campus2.jpg") }}',
-                '{{ asset("images/slider11.jpg") }}',
-            ],
+            images: {!! isset($sections['sports']) ? json_encode($sections['sports']->images->map(fn($img) => asset($img->image_path))->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
