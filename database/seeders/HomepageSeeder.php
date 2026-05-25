@@ -64,6 +64,13 @@ class HomepageSeeder extends Seeder
                     'images/campus2.jpg',
                     'images/slider11.jpg'
                 ]
+            ],
+            [
+                'identifier' => 'art_culture',
+                'title' => 'A Celebration of Art & Culture',
+                'subtitle_top' => 'Creativity',
+                'subtitle_bottom' => 'Expressing our heritage',
+                'images' => []
             ]
         ];
 

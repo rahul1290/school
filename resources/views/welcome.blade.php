@@ -14,9 +14,9 @@
     
     <!-- Hero Image -->
     <!-- <div class="relative h-[220px] sm:h-[350px] md:h-[500px] lg:h-[650px] xl:h-[750px]"> -->
-        @if(isset($sections['hero']) && $sections['hero']->images->count() > 0)
+        @if(isset($sections['logo']) && $sections['logo']->images->count() > 0)
         <img 
-            src="{{ asset($sections['hero']->images->first()->image_path) }}" 
+            src="{{ asset($sections['logo']->images->first()->image_path) }}" 
             alt="Welcome to Gyanoday Vidya Niketan"
             class="w-full h-full object-cover object-center"
         >
@@ -180,6 +180,42 @@
     </div>
 </section>
 
+<!-- Art & Culture Section -->
+<section id="art_culture" class="py-24 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h3 class="text-amber-500 font-semibold tracking-wider uppercase">{{ $sections['art_culture']->subtitle_top ?? 'Creativity' }}</h3>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['art_culture']->title ?? 'A Celebration of Art & Culture' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['art_culture']->subtitle_bottom ?? 'Expressing our heritage' }}</h6>
+        </div>
+
+        <div x-data="artCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
+            <div class="relative flex items-center justify-center h-64 md:h-96">
+                <template x-for="(img, index) in images" :key="index">
+                    <div class="absolute h-full transition-all duration-700 ease-out rounded-2xl shadow-xl overflow-hidden cursor-pointer bg-slate-200"
+                         style="width: 50%; max-width: 500px;"
+                         @click="active = index"
+                         :style="
+                            active === index ? 'z-index: 30; opacity: 1; transform: translateX(0) scale(1);' :
+                            index === getLeftIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(-55%) scale(0.85);' :
+                            index === getRightIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(55%) scale(0.85);' :
+                            'z-index: 10; opacity: 0; transform: translateX(0) scale(0.7);'
+                         ">
+                        <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Art and Culture">
+                    </div>
+                </template>
+                
+                <button @click="prev()" class="absolute left-2 md:left-4 z-40 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button @click="next()" class="absolute right-2 md:right-4 z-40 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Call to Action -->
 <section id="contact" class="py-8 relative overflow-hidden">
     <!-- <div class="absolute inset-0 bg-slate-900 z-0"></div> -->
@@ -242,7 +278,20 @@
         }
     }
 
-
+    function artCarousel() {
+        return {
+            active: 0,
+            interval: null,
+            images: {!! isset($sections['art_culture']) ? json_encode($sections['art_culture']->images->map(function($img) { return asset($img->image_path); })->toArray()) : '[]' !!},
+            getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
+            getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
+            next() { this.active = this.getRightIndex(); },
+            prev() { this.active = this.getLeftIndex(); },
+            startAutoPlay() {
+                this.interval = setInterval(() => { this.next(); }, 3500);
+            }
+        }
+    }
 </script>
 
 <style>
