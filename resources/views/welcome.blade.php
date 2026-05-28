@@ -49,11 +49,11 @@
 <!-- Our Campus Slider Section -->
 <section id="campus" class="pt-12 pb-16 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div x-data="campusCarousel()" class="relative w-full max-w-6xl mx-auto overflow-hidden pb-12">
+        <div x-data="campusCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-6xl mx-auto overflow-hidden pb-12">
             <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">{{ $sections['campus']->title ?? 'Our Campus' }}</h3>
             <div class="relative flex items-center justify-center h-[28rem] md:h-[36rem]">
                 <template x-for="(img, index) in images" :key="index">
-                    <div class="absolute h-full transition-all duration-700 ease-out rounded-3xl shadow-2xl overflow-hidden cursor-pointer"
+                    <div class="absolute h-full transition-all duration-700 ease-out rounded-3xl shadow-2xl overflow-hidden cursor-pointer bg-slate-100"
                          style="width: 60%; max-width: 600px;"
                          @click="active = index"
                          :style="
@@ -62,7 +62,7 @@
                             index === getRightIndex() ? 'z-index: 20; opacity: 0.5; transform: translateX(60%) scale(0.8) rotateY(-10deg); filter: blur(2px);' :
                             'z-index: 10; opacity: 0; transform: translateX(0) scale(0.6);'
                          ">
-                        <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Campus">
+                        <img :src="img" class="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-700" alt="Campus">
                     </div>
                 </template>
                 
@@ -129,7 +129,7 @@
                             index === getRightIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(55%) scale(0.85);' :
                             'z-index: 10; opacity: 0; transform: translateX(0) scale(0.7);'
                          ">
-                        <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Navoday Achievers">
+                        <img :src="img" class="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-500" alt="Navoday Achievers">
                     </div>
                 </template>
                 
@@ -165,7 +165,7 @@
                             index === getRightIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(55%) scale(0.85);' :
                             'z-index: 10; opacity: 0; transform: translateX(0) scale(0.7);'
                          ">
-                        <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Sport Activity">
+                        <img :src="img" class="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-500" alt="Sport Activity">
                     </div>
                 </template>
                 
@@ -201,7 +201,7 @@
                             index === getRightIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(55%) scale(0.85);' :
                             'z-index: 10; opacity: 0; transform: translateX(0) scale(0.7);'
                          ">
-                        <img :src="img" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" alt="Art and Culture">
+                        <img :src="img" class="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-500" alt="Art and Culture">
                     </div>
                 </template>
                 
@@ -240,11 +240,15 @@
     function campusCarousel() {
         return {
             active: 0,
+            interval: null,
             images: {!! isset($sections['campus']) ? json_encode($sections['campus']->images->map(function($img) { return asset($img->image_path); })->toArray()) : '[]' !!},
             getLeftIndex() { return this.active === 0 ? this.images.length - 1 : this.active - 1; },
             getRightIndex() { return this.active === this.images.length - 1 ? 0 : this.active + 1; },
             next() { this.active = this.getRightIndex(); },
-            prev() { this.active = this.getLeftIndex(); }
+            prev() { this.active = this.getLeftIndex(); },
+            startAutoPlay() {
+                this.interval = setInterval(() => { this.next(); }, 4000);
+            }
         }
     }
 
