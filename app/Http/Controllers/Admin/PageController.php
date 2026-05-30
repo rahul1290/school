@@ -29,6 +29,6 @@ class PageController extends Controller
 
         $page->update($validated);
 
-        return redirect()->route('admin.pages.index')->with('success', 'Page updated successfully.');
+        return redirect()->back()->with('success', 'your data has been stored');
     }
 }

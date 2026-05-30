@@ -32,7 +32,7 @@ class HomepageController extends Controller
 
         $section->update($validated);
 
-        return redirect()->route('admin.homepage.edit', $section)->with('success', 'Section text updated successfully.');
+        return redirect()->back()->with('success', 'your data has been stored');
     }
 
     public function uploadImage(Request $request, Section $section)
@@ -54,7 +54,7 @@ class HomepageController extends Controller
             'is_active' => true,
         ]);
 
-        return redirect()->back()->with('success', 'Image uploaded successfully.');
+        return redirect()->back()->with('success', 'your data has been stored');
     }
 
     public function updateImages(Request $request, Section $section)
@@ -78,6 +78,6 @@ class HomepageController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Images updated successfully.');
+        return redirect()->back()->with('success', 'your data has been stored');
     }
 }

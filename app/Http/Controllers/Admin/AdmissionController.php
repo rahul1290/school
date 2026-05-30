@@ -85,7 +85,7 @@ class AdmissionController extends Controller
 
         $admission->update($validated);
 
-        return redirect()->route('admin.admissions.index')->with('success', 'Admission updated successfully.');
+        return redirect()->back()->with('success', 'your data has been stored');
     }
 
     public function print(Admission $admission)

@@ -49,27 +49,27 @@
 <!-- Our Campus Slider Section -->
 <section id="campus" class="pt-12 pb-16 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div x-data="campusCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-6xl mx-auto overflow-hidden pb-12">
+        <div x-data="campusCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
             <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">{{ $sections['campus']->title ?? 'Our Campus' }}</h3>
-            <div class="relative flex items-center justify-center h-[28rem] md:h-[36rem]">
+            <div class="relative flex items-center justify-center h-64 md:h-96">
                 <template x-for="(img, index) in images" :key="index">
-                    <div class="absolute h-full transition-all duration-700 ease-out rounded-3xl shadow-2xl overflow-hidden cursor-pointer bg-slate-100"
-                         style="width: 60%; max-width: 600px;"
+                    <div class="absolute h-full transition-all duration-700 ease-out rounded-2xl shadow-xl overflow-hidden cursor-pointer bg-slate-100"
+                         style="width: 50%; max-width: 500px;"
                          @click="active = index"
                          :style="
                             active === index ? 'z-index: 30; opacity: 1; transform: translateX(0) scale(1);' :
-                            index === getLeftIndex() ? 'z-index: 20; opacity: 0.5; transform: translateX(-60%) scale(0.8) rotateY(10deg); filter: blur(2px);' :
-                            index === getRightIndex() ? 'z-index: 20; opacity: 0.5; transform: translateX(60%) scale(0.8) rotateY(-10deg); filter: blur(2px);' :
-                            'z-index: 10; opacity: 0; transform: translateX(0) scale(0.6);'
+                            index === getLeftIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(-55%) scale(0.85);' :
+                            index === getRightIndex() ? 'z-index: 20; opacity: 0.6; transform: translateX(55%) scale(0.85);' :
+                            'z-index: 10; opacity: 0; transform: translateX(0) scale(0.7);'
                          ">
                         <img :src="img" class="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-700" alt="Campus">
                     </div>
                 </template>
                 
-                <button @click="prev()" class="absolute left-4 md:left-12 z-40 w-14 h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
+                <button @click="prev()" class="absolute left-2 md:left-4 z-40 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
-                <button @click="next()" class="absolute right-4 md:right-12 z-40 w-14 h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
+                <button @click="next()" class="absolute right-2 md:right-4 z-40 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white text-slate-800 transition-all hover:scale-110">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
