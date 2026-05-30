@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     $sections = \App\Models\Section::with(['images' => function($q) {
@@ -52,4 +53,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 });
 
 // Generic Pages (must be at the bottom to avoid catching other routes like /admin)
-Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'show'])->where('slug', 'about-us|contact')->name('pages.show');
+Route::get('/about-us', function () {
+    return view('pages.about-us');
+})->name('about-us');
+
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
