@@ -49,7 +49,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Pages routes
     Route::resource('pages', App\Http\Controllers\Admin\PageController::class)->only(['index', 'edit', 'update']);
+
+    // Settings routes
+    Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
 });
+
+// Contact Form Route
+Route::post('/contact/submit', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
 // Generic Pages (must be at the bottom to avoid catching other routes like /admin)
 Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'show'])->where('slug', 'about-us|contact')->name('pages.show');
