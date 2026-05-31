@@ -63,59 +63,17 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 pt-16 pb-24 lg:pb-12 border-t border-slate-800">
+    <footer class="bg-slate-900 text-slate-300 pt-20 pb-24 lg:pb-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-                {{-- Brand --}}
-                <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto object-contain bg-white rounded-full p-1 shadow">
-                        <div>
-                            <h2 class="text-lg font-bold text-white font-['Outfit'] leading-tight">Gyanoday Vidya Niketan</h2>
-                            <p class="text-xs text-orange-400 uppercase tracking-widest">A Way of Salvation</p>
-                        </div>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Providing holistic education deeply rooted in traditional values and modern excellence. CBSE affiliated, Classes I–XII.
-                    </p>
+            <div class="text-center">
+                <h2 class="text-3xl font-bold mb-4 text-white font-['Outfit']">Gyanoday Vidya Niketan</h2>
+                <p class="text-slate-400 mb-8 max-w-xl mx-auto text-lg">Providing holistic education deeply rooted in traditional values and modern excellence.</p>
+                <div class="flex justify-center gap-6 mb-8">
+                    <!-- Social icons could go here -->
                 </div>
-                {{-- Quick Links --}}
-                <div>
-                    <h3 class="text-white font-bold mb-4 font-['Outfit'] text-base uppercase tracking-wide">Quick Links</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ url('/') }}" class="text-slate-400 hover:text-orange-400 transition flex items-center gap-2"><span class="text-orange-500">›</span> Home</a></li>
-                        <li><a href="{{ url('/about-us') }}" class="text-slate-400 hover:text-orange-400 transition flex items-center gap-2"><span class="text-orange-500">›</span> About Us</a></li>
-                        <li><a href="{{ url('/#academics') }}" class="text-slate-400 hover:text-orange-400 transition flex items-center gap-2"><span class="text-orange-500">›</span> Academics</a></li>
-                        <li><a href="{{ url('/admission') }}" class="text-slate-400 hover:text-orange-400 transition flex items-center gap-2"><span class="text-orange-500">›</span> Admission</a></li>
-                        <li><a href="{{ url('/contact') }}" class="text-slate-400 hover:text-orange-400 transition flex items-center gap-2"><span class="text-orange-500">›</span> Contact Us</a></li>
-                    </ul>
+                <div class="border-t border-slate-800/50 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm text-slate-500">&copy; {{ date('Y') }} Gyanoday Vidya Niketan. All rights reserved.</p>
                 </div>
-                {{-- Contact --}}
-                <div>
-                    <h3 class="text-white font-bold mb-4 font-['Outfit'] text-base uppercase tracking-wide">Contact</h3>
-                    <ul class="space-y-3 text-sm text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <span class="text-orange-400 mt-0.5">📍</span>
-                            School Lane, Education City, Bhopal, MP – 462001
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-orange-400">📞</span>
-                            <a href="tel:+919876543210" class="hover:text-orange-400 transition">+91 98765 43210</a>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-orange-400">✉️</span>
-                            <a href="mailto:info@gyanodayvidyaniketan.edu.in" class="hover:text-orange-400 transition break-all">info@gyanodayvidyaniketan.edu.in</a>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-orange-400">🕐</span>
-                            Mon–Sat: 8:00 AM – 4:00 PM
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-3">
-                <p class="text-sm text-slate-500">&copy; {{ date('Y') }} Gyanoday Vidya Niketan. All rights reserved.</p>
-                <p class="text-xs text-slate-600">Designed with ❤️ for our students</p>
             </div>
         </div>
     </footer>
