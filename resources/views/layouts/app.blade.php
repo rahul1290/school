@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Gyanoday Vidya Niketan')</title>
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/apple-touch-icon.png') }}">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     
@@ -50,7 +57,6 @@
             <nav class="hidden md:flex gap-8 items-center">
                 <a href="{{ url('/') }}" class="pb-1 border-b-2 transition-all {{ request()->is('/') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Home</a>
                 <a href="{{ url('/about-us') }}" class="pb-1 border-b-2 transition-all {{ request()->is('about-us') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">About Us</a>
-                <a href="{{ url('/#academics') }}" class="pb-1 border-b-2 transition-all {{ request()->is('#academics') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Academics</a>
                 <a href="{{ url('/admission') }}" class="pb-1 border-b-2 transition-all {{ request()->is('admission') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-bold' }}">Admission</a>
                 <a href="{{ url('/contact') }}" class="pb-1 border-b-2 transition-all {{ request()->is('contact') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Contact</a>
             </nav>

@@ -1,20 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Admin - Edit Admission')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div>
+    <div>
         
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.admissions.index') }}" class="text-indigo-600 hover:text-indigo-900 font-medium">&larr; Back to Admissions</a>
-            
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="text-sm font-medium text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-colors">
-                    Logout
-                </button>
-            </form>
+            <a href="{{ route('admin.admissions.index') }}" class="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-2">
+                &larr; Back to Admissions List
+            </a>
         </div>
 
         <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
@@ -110,8 +105,12 @@
                             <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No. <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Bank Account No. <span class="text-red-500">*</span></label>
                             <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">IFSC Code <span class="text-red-500">*</span></label>
+                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
                         </div>
                     </div>
                 </div>

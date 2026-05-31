@@ -3,25 +3,50 @@
 @section('title', 'Admission Form - Gyanoday Vidya Niketan')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 print:pt-0 print:py-0 print:bg-transparent min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0">
-        
-        <!-- Header -->
-        <div class="mb-10 print:mb-8">
-            <div class="flex items-center justify-start gap-4 md:gap-6 mb-8 print:mb-6">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 md:h-20 w-auto object-contain print:h-16">
-                <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 font-['Outfit'] print:text-2xl uppercase tracking-wider text-left">Gyanoday Vidya Niketan</h1>
-            </div>
-            <div class="text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 font-['Outfit'] print:text-xl">Admission Form</h2>
-                <p class="text-xl text-slate-600 print:text-sm mt-1 print:mt-0 font-medium">Academic Session 2026-27</p>
-            </div>
+<div class="bg-slate-50 min-h-screen pb-24 print:pb-0 print:bg-transparent">
+    
+    <!-- Standard Header section -->
+    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-950 py-16 px-4 md:px-8 text-center relative overflow-hidden print:hidden">
+        <!-- Logo Watermark Background Overlay -->
+        <div class="absolute inset-0 z-0 opacity-[0.06] pointer-events-none" 
+             style="background-image: url('{{ asset("images/logo.png") }}'); background-repeat: repeat; background-size: 70px 70px;">
         </div>
+
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-5 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl"></div>
+        
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white font-['Outfit'] relative z-10">Admission Form</h1>
+        <p class="text-xl text-blue-200 mt-3 font-medium relative z-10">Academic Session 2026-27</p>
+        <div class="w-24 h-1 bg-amber-500 mx-auto mt-6 rounded-full relative z-10"></div>
+    </div>
+
+    <!-- Print-only minimal header -->
+    <div class="hidden print:block mb-8">
+        <div class="flex items-center justify-start gap-4 mb-6">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 w-auto object-contain">
+            <h1 class="text-2xl font-extrabold text-slate-900 font-['Outfit'] uppercase tracking-wider text-left">Gyanoday Vidya Niketan</h1>
+        </div>
+        <div class="text-center">
+            <h2 class="text-xl font-bold text-slate-800 font-['Outfit']">Admission Form</h2>
+            <p class="text-sm text-slate-600 font-medium">Academic Session 2026-27</p>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 print:mt-0 print:px-0">
 
         @if(session('success'))
             <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative print:hidden" role="alert">
                 <span class="block sm:inline">{{ session('success') }}</span>
             </div>
+            <script>
+                // Automatically open the print dialog after a successful submission
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(function() {
+                        window.print();
+                    }, 500); // Slight delay ensures the page is fully rendered
+                });
+            </script>
         @endif
         @if($errors->any())
             <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative print:hidden" role="alert">
@@ -48,7 +73,7 @@
                     <div class="md:col-span-2 print:col-span-2 flex gap-4">
                         <div class="flex-grow">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="name" value="{{ old('name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                            <input type="text" name="name" value="{{ old('name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                         <div class="w-1/3">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class <span class="text-red-500">*</span></label>
@@ -128,9 +153,17 @@
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No. <span class="text-red-500">*</span></label>
                         <input type="text" name="pen_no" value="{{ old('pen_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Bank Account No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                    <div class="print:hidden">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No. <span class="text-red-500">*</span></label>
+                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="print:hidden">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code <span class="text-red-500">*</span></label>
+                        <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                    </div>
+                    <div class="hidden print:block">
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no & Ifsc <span class="text-red-500">*</span></label>
+                        <input type="text" value="{{ old('bank_account_no') ? old('bank_account_no') . ' / ' . old('ifsc_code') : '' }}" class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -203,7 +236,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Father's Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="father_name" value="{{ old('father_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="father_name" value="{{ old('father_name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
@@ -216,7 +249,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" name="father_mobile" value="{{ old('father_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="father_mobile" value="{{ old('father_mobile') }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
                     <!-- Spacer / Divider -->
@@ -224,7 +257,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mother's Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="mother_name" value="{{ old('mother_name') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" name="mother_name" value="{{ old('mother_name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
@@ -237,7 +270,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
-                        <input type="tel" name="mother_mobile" value="{{ old('mother_mobile') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="tel" name="mother_mobile" value="{{ old('mother_mobile') }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -584,6 +617,28 @@ document.addEventListener('DOMContentLoaded', function() {
             e.target.classList.add('border-slate-300', 'focus:ring-indigo-500');
         }
     });
+
+    // Automatically set the selected value for dropdowns based on old input
+    const oldValues = {
+        'class': "{{ old('class') }}",
+        'category': "{{ old('category') }}",
+        'gender': "{{ old('gender') }}",
+        'nationality': "{{ old('nationality') }}",
+        'state': "{{ old('state') }}",
+        'prev_class': "{{ old('prev_class') }}",
+        'prev_passing_year': "{{ old('prev_passing_year') }}",
+        'prev_medium': "{{ old('prev_medium') }}",
+        'prev_board': "{{ old('prev_board') }}"
+    };
+    
+    for (const [name, value] of Object.entries(oldValues)) {
+        if (value) {
+            const select = document.querySelector(`select[name="${name}"]`);
+            if (select) {
+                select.value = value;
+            }
+        }
+    }
 });
 </script>
 

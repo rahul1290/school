@@ -1,26 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Admin - Admissions List')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 min-h-screen">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div>
+    <div>
         
         <!-- Screen Header -->
-        <div class="flex justify-between items-center mb-2 print:hidden">
-            <h1 class="text-3xl font-extrabold text-slate-900 font-['Outfit']">Admissions</h1>
+        <div class="flex justify-between items-center mb-6 print:hidden">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900 font-['Outfit'] tracking-tight">Admissions Review</h1>
+                <p class="text-slate-500 text-sm mt-1">Manage and review student admission applications</p>
+            </div>
             
             <div class="flex items-center gap-4">
-                <button type="button" onclick="window.print()" class="text-sm font-medium text-slate-700 bg-white px-4 py-2 rounded-lg border border-slate-300 shadow-sm hover:bg-slate-50 transition-colors flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Print
+                <button type="button" onclick="window.print()" class="text-sm font-semibold text-slate-700 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:bg-slate-50 transition-all flex items-center gap-2">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Print List
                 </button>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="text-sm font-medium text-white bg-slate-800 px-4 py-2 rounded-lg hover:bg-slate-900 transition-colors">
-                        Logout
-                    </button>
-                </form>
             </div>
         </div>
 
@@ -34,12 +31,6 @@
                 <h2 class="text-xl font-bold text-slate-800 font-['Outfit']">Admissions List</h2>
                 <p class="text-sm text-slate-600 mt-1 font-medium">Printed on {{ now()->format('M d, Y h:i A') }}</p>
             </div>
-        </div>
-        
-        <div class="flex space-x-4 border-b border-slate-200 mb-6 pb-2 print:hidden">
-            <a href="{{ route('admin.admissions.index') }}" class="text-indigo-600 font-medium border-b-2 border-indigo-600 px-2">Admissions</a>
-            <a href="{{ route('admin.homepage.index') }}" class="text-slate-500 hover:text-slate-700 font-medium px-2">Homepage Sections</a>
-            <a href="{{ route('admin.pages.index') }}" class="text-slate-500 hover:text-slate-700 font-medium px-2">Pages</a>
         </div>
 
         @if(session('success'))

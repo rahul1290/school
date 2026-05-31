@@ -1,20 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Admin - Edit Page')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+<div>
+    <div>
         
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.pages.index') }}" class="text-indigo-600 hover:text-indigo-900 font-medium">&larr; Back to Pages</a>
-            
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="text-sm font-medium text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-colors">
-                    Logout
-                </button>
-            </form>
+            <a href="{{ route('admin.pages.index') }}" class="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-2">
+                &larr; Back to Pages List
+            </a>
         </div>
 
         <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
@@ -49,9 +44,9 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Content (HTML allowed)</label>
-                        <p class="text-xs text-slate-500 mb-2">You can use standard HTML tags like &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, etc.</p>
-                        <textarea name="content" rows="15" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-mono text-sm">{{ old('content', $page->content) }}</textarea>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">Content</label>
+                        <p class="text-xs text-slate-500 mb-2">Use the editor to style text, insert lists, links, or click the **Source** button to edit raw HTML code.</p>
+                        <textarea name="content" rows="15" class="ckeditor-enabled w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm">{{ old('content', $page->content) }}</textarea>
                     </div>
 
                     @if($page->slug === 'contact')

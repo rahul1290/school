@@ -11,7 +11,7 @@ class AdmissionController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\'\-]+$/'],
             'class' => 'required|string|max:255',
             'dob' => 'required|date',
             'dob_words' => 'required|string|max:255',
@@ -23,6 +23,7 @@ class AdmissionController extends Controller
             'apaar_id' => 'required|string|max:255',
             'pen_no' => 'required|string|max:255',
             'bank_account_no' => 'required|string|max:255',
+            'ifsc_code' => 'required|string|max:255',
             
             'prev_school_name' => 'nullable|string|max:255',
             'prev_class' => 'nullable|string|max:255',
@@ -30,15 +31,15 @@ class AdmissionController extends Controller
             'prev_medium' => 'nullable|string|max:255',
             'prev_board' => 'nullable|string|max:255',
             
-            'father_name' => 'required|string|max:255',
+            'father_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\'\-]+$/'],
             'father_aadhaar' => 'required|string|max:255',
             'father_occupation' => 'required|string|max:255',
-            'father_mobile' => 'required|string|max:255',
+            'father_mobile' => 'required|digits:10',
             
-            'mother_name' => 'required|string|max:255',
+            'mother_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\'\-]+$/'],
             'mother_aadhaar' => 'required|string|max:255',
             'mother_occupation' => 'required|string|max:255',
-            'mother_mobile' => 'required|string|max:255',
+            'mother_mobile' => 'required|digits:10',
             
             'address_line_1' => 'required|string|max:255',
             'address_line_2' => 'nullable|string|max:255',
@@ -48,6 +49,6 @@ class AdmissionController extends Controller
 
         Admission::create($validatedData);
 
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        return redirect()->back()->with('success', 'Form submitted successfully!')->withInput();
     }
 }

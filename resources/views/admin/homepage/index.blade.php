@@ -1,26 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Admin - Homepage Sections')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 min-h-screen">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div>
+    <div>
         
-        <div class="flex justify-between items-center mb-2">
-            <h1 class="text-3xl font-extrabold text-slate-900 font-['Outfit']">Homepage Sections</h1>
-            
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="text-sm font-medium text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-colors">
-                    Logout
-                </button>
-            </form>
-        </div>
-        
-        <div class="flex space-x-4 border-b border-slate-200 mb-6 pb-2">
-            <a href="{{ route('admin.admissions.index') }}" class="text-slate-500 hover:text-slate-700 font-medium px-2">Admissions</a>
-            <a href="{{ route('admin.homepage.index') }}" class="text-indigo-600 font-medium border-b-2 border-indigo-600 px-2">Homepage Sections</a>
-            <a href="{{ route('admin.pages.index') }}" class="text-slate-500 hover:text-slate-700 font-medium px-2">Pages</a>
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900 font-['Outfit'] tracking-tight">Homepage Sections</h1>
+                <p class="text-slate-500 text-sm mt-1">Manage slider content, section text, and images for the website front page</p>
+            </div>
         </div>
 
         @if(session('success'))
