@@ -105,8 +105,12 @@
                             <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No. <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Bank Account No. <span class="text-red-500">*</span></label>
                             <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">IFSC Code <span class="text-red-500">*</span></label>
+                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
                         </div>
                     </div>
                 </div>

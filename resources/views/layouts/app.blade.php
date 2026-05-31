@@ -57,7 +57,6 @@
             <nav class="hidden md:flex gap-8 items-center">
                 <a href="{{ url('/') }}" class="pb-1 border-b-2 transition-all {{ request()->is('/') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Home</a>
                 <a href="{{ url('/about-us') }}" class="pb-1 border-b-2 transition-all {{ request()->is('about-us') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">About Us</a>
-                <a href="{{ url('/#academics') }}" class="pb-1 border-b-2 transition-all {{ request()->is('#academics') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Academics</a>
                 <a href="{{ url('/admission') }}" class="pb-1 border-b-2 transition-all {{ request()->is('admission') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-bold' }}">Admission</a>
                 <a href="{{ url('/contact') }}" class="pb-1 border-b-2 transition-all {{ request()->is('contact') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Contact</a>
             </nav>

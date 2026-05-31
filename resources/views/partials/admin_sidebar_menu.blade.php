@@ -23,6 +23,13 @@
                     <span>Custom Pages</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.settings.index') }}" 
+                   class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all {{ request()->routeIs('admin.settings.*') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/10' : 'text-slate-400 hover:bg-slate-800 hover:text-white' }}">
+                    <span class="text-lg">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </li>
         </ul>
     </div>
 

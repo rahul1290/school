@@ -37,6 +37,12 @@
             </div>
         </div>
 
+        @if($page->slug === 'contact')
+            <div class="max-w-[95%] xl:max-w-[90%] mx-auto px-4 md:px-8 pb-12">
+                @include('partials.contact_form')
+            </div>
+        @endif
+
         <style>
             /* Override DB-seeded page layouts to fit perfectly in the side-by-side grid */
             .contact-container section.bg-gradient-to-br {

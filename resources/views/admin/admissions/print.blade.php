@@ -85,8 +85,8 @@
                         <input type="text" name="pen_no" value="{{ $admission->pen_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Bank Account No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="bank_account_no" value="{{ $admission->bank_account_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no & Ifsc</label>
+                        <input type="text" value="{{ $admission->bank_account_no }} / {{ $admission->ifsc_code }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
