@@ -1,20 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Admin - Manage Section')
 
 @section('content')
-<div class="bg-slate-50 py-12 pt-28 min-h-screen">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div>
+    <div>
         
-        <div class="flex justify-between items-center mb-2">
-            <a href="{{ route('admin.homepage.index') }}" class="text-indigo-600 hover:text-indigo-900 font-medium">&larr; Back to Sections</a>
-            
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="text-sm font-medium text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm transition-colors">
-                    Logout
-                </button>
-            </form>
+        <div class="flex justify-between items-center mb-6">
+            <a href="{{ route('admin.homepage.index') }}" class="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-2">
+                &larr; Back to Sections List
+            </a>
         </div>
 
         @if(session('success') && session('success') !== 'your data has been stored')
