@@ -23,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
+                \Illuminate\Support\Facades\View::share('global_settings', \App\Models\Setting::pluck('value', 'key')->toArray());
+            }
+        } catch (\Exception $e) {
+            // Do nothing if database is not set up yet
+        }
     }
 }

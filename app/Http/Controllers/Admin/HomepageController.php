@@ -28,6 +28,9 @@ class HomepageController extends Controller
             'title' => 'nullable|string|max:255',
             'subtitle_top' => 'nullable|string|max:255',
             'subtitle_bottom' => 'nullable|string|max:255',
+            'title_font' => 'nullable|string|max:100',
+            'title_color' => 'nullable|string|max:20',
+            'subtitle_color' => 'nullable|string|max:20',
         ]);
 
         $section->update($validated);

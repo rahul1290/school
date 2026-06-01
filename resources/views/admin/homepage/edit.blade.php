@@ -45,6 +45,51 @@
                     <label class="block text-sm font-medium text-slate-700 mb-1">Bottom Subtitle</label>
                     <input type="text" name="subtitle_bottom" value="{{ old('subtitle_bottom', $section->subtitle_bottom) }}" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </div>
+                
+                <div class="pt-4 border-t border-slate-100">
+                    <h3 class="text-lg font-medium text-slate-800 mb-4">Section Styling Override (Optional)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Title Font</label>
+                            @php
+                                $googleFonts = [
+                                    'Abel', 'Acme', 'Anton', 'Archivo', 'Arimo', 'Asap', 'Assistant', 'Barlow', 'Bebas Neue', 
+                                    'Bitter', 'Cabin', 'Caveat', 'Comfortaa', 'Crimson Text', 'Dancing Script', 'Dosis', 
+                                    'Exo 2', 'Fira Sans', 'Fjalla One', 'Heebo', 'Hind', 'Hind Siliguri', 'Inconsolata', 
+                                    'Inter', 'Josefin Sans', 'Kanit', 'Karla', 'Lato', 'Libre Baskerville', 'Lobster', 
+                                    'Lora', 'Manrope', 'Merriweather', 'Montserrat', 'Mukta', 'Muli', 'Noto Sans', 
+                                    'Noto Serif', 'Nunito', 'Nunito Sans', 'Open Sans', 'Oswald', 'Outfit', 'Oxygen', 
+                                    'Pacifico', 'Playfair Display', 'Poppins', 'PT Sans', 'PT Serif', 'Quicksand', 
+                                    'Raleway', 'Righteous', 'Roboto', 'Roboto Condensed', 'Rubik', 'Shadows Into Light', 
+                                    'Signika', 'Slabo 27px', 'Source Sans Pro', 'Teko', 'Titillium Web', 'Ubuntu', 
+                                    'Varela Round', 'Work Sans', 'Yanone Kaffeesatz', 'Zilla Slab'
+                                ];
+                                sort($googleFonts);
+                            @endphp
+                            <select name="title_font" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                <option value="">Default (Inherit from Settings)</option>
+                                @php $titleFont = old('title_font', $section->title_font); @endphp
+                                @foreach($googleFonts as $font)
+                                    <option value="{{ $font }}" {{ $titleFont == $font ? 'selected' : '' }}>{{ $font }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Title Color</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" value="{{ old('title_color', $section->title_color ?? '#000000') }}" class="h-9 w-12 rounded cursor-pointer border border-slate-300 p-0.5" oninput="this.nextElementSibling.value = this.value">
+                                <input type="text" name="title_color" value="{{ old('title_color', $section->title_color) }}" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm uppercase" placeholder="e.g. #000000" oninput="this.previousElementSibling.value = this.value || '#000000'">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Subtitle Color</label>
+                            <div class="flex items-center gap-2">
+                                <input type="color" value="{{ old('subtitle_color', $section->subtitle_color ?? '#000000') }}" class="h-9 w-12 rounded cursor-pointer border border-slate-300 p-0.5" oninput="this.nextElementSibling.value = this.value">
+                                <input type="text" name="subtitle_color" value="{{ old('subtitle_color', $section->subtitle_color) }}" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm uppercase" placeholder="e.g. #4f46e5" oninput="this.previousElementSibling.value = this.value || '#000000'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <button type="submit" class="bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
                         Save Content

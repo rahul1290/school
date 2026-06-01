@@ -4,6 +4,21 @@
 
 @section('content')
 
+@php
+    $customFonts = [];
+    if(isset($sections)) {
+        foreach($sections as $s) {
+            if (!empty($s->title_font) && !in_array($s->title_font, $customFonts)) {
+                $customFonts[] = $s->title_font;
+            }
+        }
+    }
+@endphp
+@if(count($customFonts) > 0)
+    @push('styles')
+        <link href="https://fonts.googleapis.com/css2?{{ implode('&', array_map(function($f) { return 'family='.urlencode($f).':wght@400;600;700;800'; }, $customFonts)) }}&display=swap" rel="stylesheet">
+    @endpush
+@endif
 <!-- Hero Static Image Section -->
 <!-- <div class="relative w-full aspect-square sm:aspect-video md:aspect-[2/1] lg:aspect-[5/2] overflow-hidden bg-white">
     <img src="{{ asset('images/slider1.png') }}" alt="Welcome to Gyanoday Vidya Niketan" class="w-full h-full object-cover object-top">
@@ -36,12 +51,12 @@
 <section id="academics" class="pt-16 pb-12 bg-slate-50 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto space-y-6">
-            <div class="inline-flex items-center justify-center gap-3 bg-white px-6 py-2 rounded-full shadow-sm mb-4">
+            <!-- <div class="inline-flex items-center justify-center gap-3 bg-white px-6 py-2 rounded-full shadow-sm mb-4">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto object-contain">
                 <span class="text-indigo-600 font-semibold tracking-wider text-sm uppercase">{{ $sections['academics']->subtitle_top ?? 'Academics' }}</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['academics']->title ?? 'Welcome to the Gyanoday Family' }}</h2>
-            <p class="text-xl text-slate-600 font-light">{{ $sections['academics']->subtitle_bottom ?? 'The divine destination for learners, where attaining Moksh is the ultimate goal of life.' }}</p>
+            </div> -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900" style="{{ !empty($sections['academics']->title_font) ? "font-family: '".$sections['academics']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['academics']->title_color) ? "color: ".$sections['academics']->title_color." !important;" : '' }}">{{ $sections['academics']->title ?? 'Welcome to the Gyanoday Family' }}</h2>
+            <p class="text-xl text-slate-600 font-light" style="{{ !empty($sections['academics']->subtitle_color) ? "color: ".$sections['academics']->subtitle_color.";" : '' }}">{{ $sections['academics']->subtitle_bottom ?? 'The divine destination for learners, where attaining Moksh is the ultimate goal of life.' }}</p>
         </div>
     </div>
 </section>
@@ -50,7 +65,7 @@
 <section id="campus" class="pt-12 pb-16 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div x-data="campusCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
-            <h3 class="text-3xl font-bold text-center text-slate-800 mb-10 font-['Outfit']">{{ $sections['campus']->title ?? 'Our Campus' }}</h3>
+            <h3 class="text-3xl font-bold text-center text-slate-800 mb-10" style="{{ !empty($sections['campus']->title_font) ? "font-family: '".$sections['campus']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['campus']->title_color) ? "color: ".$sections['campus']->title_color." !important;" : '' }}">{{ $sections['campus']->title ?? 'Our Campus' }}</h3>
             <div class="relative flex items-center justify-center h-64 md:h-96">
                 <template x-for="(img, index) in images" :key="index">
                     <div class="absolute h-full transition-all duration-700 ease-out rounded-2xl shadow-xl overflow-hidden cursor-pointer bg-slate-100"
@@ -112,9 +127,9 @@
 <section id="achievers" class="py-24 bg-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h3 class="text-orange-500 font-semibold tracking-wider uppercase">{{ $sections['achievers']->subtitle_top ?? 'Celebrating Excellence' }}</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['achievers']->title ?? 'Navoday Achievers' }}</h2>
-            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['achievers']->subtitle_bottom ?? '55 students selected in Navodaya vidyalaya' }}</h6>
+            <!-- <h3 class="text-orange-500 font-semibold tracking-wider uppercase">{{ $sections['achievers']->subtitle_top ?? 'Celebrating Excellence' }}</h3> -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900" style="{{ !empty($sections['achievers']->title_font) ? "font-family: '".$sections['achievers']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['achievers']->title_color) ? "color: ".$sections['achievers']->title_color." !important;" : '' }}">{{ $sections['achievers']->title ?? 'Navoday Achievers' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600" style="{{ !empty($sections['achievers']->subtitle_color) ? "color: ".$sections['achievers']->subtitle_color.";" : '' }}">{{ $sections['achievers']->subtitle_bottom ?? '55 students selected in Navodaya vidyalaya' }}</h6>
         </div>
 
         <div x-data="achieversCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
@@ -148,9 +163,9 @@
 <section id="sports" class="py-24 bg-slate-50 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h3 class="text-indigo-500 font-semibold tracking-wider uppercase">{{ $sections['sports']->subtitle_top ?? 'Active Lifestyle' }}</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['sports']->title ?? 'Sport Activity' }}</h2>
-            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['sports']->subtitle_bottom ?? 'Beyond the Classroom' }}</h6>
+            <!-- <h3 class="text-indigo-500 font-semibold tracking-wider uppercase">{{ $sections['sports']->subtitle_top ?? 'Active Lifestyle' }}</h3> -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900" style="{{ !empty($sections['sports']->title_font) ? "font-family: '".$sections['sports']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['sports']->title_color) ? "color: ".$sections['sports']->title_color." !important;" : '' }}">{{ $sections['sports']->title ?? 'Sport Activity' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600" style="{{ !empty($sections['sports']->subtitle_color) ? "color: ".$sections['sports']->subtitle_color.";" : '' }}">{{ $sections['sports']->subtitle_bottom ?? 'Beyond the Classroom' }}</h6>
         </div>
 
         <div x-data="sportsCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">
@@ -184,9 +199,9 @@
 <section id="art_culture" class="py-24 bg-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h3 class="text-amber-500 font-semibold tracking-wider uppercase">{{ $sections['art_culture']->subtitle_top ?? 'Creativity' }}</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 font-['Outfit']">{{ $sections['art_culture']->title ?? 'A Celebration of Art & Culture' }}</h2>
-            <h6 class="text-sm md:text-base font-semibold text-gray-600">{{ $sections['art_culture']->subtitle_bottom ?? 'Expressing our heritage' }}</h6>
+            <!-- <h3 class="text-amber-500 font-semibold tracking-wider uppercase">{{ $sections['art_culture']->subtitle_top ?? 'Creativity' }}</h3> -->
+            <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900" style="{{ !empty($sections['art_culture']->title_font) ? "font-family: '".$sections['art_culture']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['art_culture']->title_color) ? "color: ".$sections['art_culture']->title_color." !important;" : '' }}">{{ $sections['art_culture']->title ?? 'A Celebration of Art & Culture' }}</h2>
+            <h6 class="text-sm md:text-base font-semibold text-gray-600" style="{{ !empty($sections['art_culture']->subtitle_color) ? "color: ".$sections['art_culture']->subtitle_color.";" : '' }}">{{ $sections['art_culture']->subtitle_bottom ?? 'Expressing our heritage' }}</h6>
         </div>
 
         <div x-data="artCarousel()" x-init="startAutoPlay()" class="relative w-full max-w-5xl mx-auto overflow-hidden pb-10">

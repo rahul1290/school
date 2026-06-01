@@ -44,6 +44,90 @@
                     </div>
                 </div>
                 
+                <!-- Theme Settings -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100">Theme Settings</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Primary Color -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Primary Color (Indigo)</label>
+                            <p class="text-xs text-slate-500 mb-2">Used for buttons, primary links, and main highlights.</p>
+                            <div class="flex items-center gap-3">
+                                <input type="color" name="theme_primary_color" value="{{ old('theme_primary_color', $settings['theme_primary_color'] ?? '#4f46e5') }}" class="h-10 w-14 rounded cursor-pointer border border-slate-300 p-1">
+                                <input type="text" name="theme_primary_color" value="{{ old('theme_primary_color', $settings['theme_primary_color'] ?? '#4f46e5') }}" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 uppercase" placeholder="#4f46e5" oninput="this.previousElementSibling.value = this.value">
+                            </div>
+                        </div>
+
+                        <!-- Secondary Color -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Secondary Color (Amber)</label>
+                            <p class="text-xs text-slate-500 mb-2">Used for accents, secondary buttons, and specific highlights.</p>
+                            <div class="flex items-center gap-3">
+                                <input type="color" name="theme_secondary_color" value="{{ old('theme_secondary_color', $settings['theme_secondary_color'] ?? '#f59e0b') }}" class="h-10 w-14 rounded cursor-pointer border border-slate-300 p-1">
+                                <input type="text" name="theme_secondary_color" value="{{ old('theme_secondary_color', $settings['theme_secondary_color'] ?? '#f59e0b') }}" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 uppercase" placeholder="#f59e0b" oninput="this.previousElementSibling.value = this.value">
+                            </div>
+                        </div>
+
+                        <!-- Heading Font -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Heading Font</label>
+                            <p class="text-xs text-slate-500 mb-2">Select the font used for titles and headers.</p>
+                            @php
+                                $googleFonts = [
+                                    'Abel', 'Acme', 'Anton', 'Archivo', 'Arimo', 'Asap', 'Assistant', 'Barlow', 'Bebas Neue', 
+                                    'Bitter', 'Cabin', 'Caveat', 'Comfortaa', 'Crimson Text', 'Dancing Script', 'Dosis', 
+                                    'Exo 2', 'Fira Sans', 'Fjalla One', 'Heebo', 'Hind', 'Hind Siliguri', 'Inconsolata', 
+                                    'Inter', 'Josefin Sans', 'Kanit', 'Karla', 'Lato', 'Libre Baskerville', 'Lobster', 
+                                    'Lora', 'Manrope', 'Merriweather', 'Montserrat', 'Mukta', 'Muli', 'Noto Sans', 
+                                    'Noto Serif', 'Nunito', 'Nunito Sans', 'Open Sans', 'Oswald', 'Outfit', 'Oxygen', 
+                                    'Pacifico', 'Playfair Display', 'Poppins', 'PT Sans', 'PT Serif', 'Quicksand', 
+                                    'Raleway', 'Righteous', 'Roboto', 'Roboto Condensed', 'Rubik', 'Shadows Into Light', 
+                                    'Signika', 'Slabo 27px', 'Source Sans Pro', 'Teko', 'Titillium Web', 'Ubuntu', 
+                                    'Varela Round', 'Work Sans', 'Yanone Kaffeesatz', 'Zilla Slab'
+                                ];
+                                sort($googleFonts);
+                            @endphp
+                            <select name="theme_heading_font" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                @php $headingFont = old('theme_heading_font', $settings['theme_heading_font'] ?? 'Outfit'); @endphp
+                                @foreach($googleFonts as $font)
+                                    <option value="{{ $font }}" {{ $headingFont == $font ? 'selected' : '' }}>{{ $font }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Body Font -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Body Font</label>
+                            <p class="text-xs text-slate-500 mb-2">Select the font used for general paragraph text.</p>
+                            <select name="theme_body_font" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                @php $bodyFont = old('theme_body_font', $settings['theme_body_font'] ?? 'Inter'); @endphp
+                                @foreach($googleFonts as $font)
+                                    <option value="{{ $font }}" {{ $bodyFont == $font ? 'selected' : '' }}>{{ $font }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social & App Links -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100">Social & App Links</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">YouTube Channel Link</label>
+                            <p class="text-xs text-slate-500 mb-2">The URL for your YouTube channel. Leave blank to hide the button.</p>
+                            <input type="url" name="social_youtube_link" value="{{ old('social_youtube_link', $settings['social_youtube_link'] ?? '') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="https://youtube.com/...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Mobile App Download Link</label>
+                            <p class="text-xs text-slate-500 mb-2">The URL for your Mobile App. Leave blank to hide the button.</p>
+                            <input type="url" name="social_app_link" value="{{ old('social_app_link', $settings['social_app_link'] ?? '') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="https://play.google.com/...">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Future Settings can be added here -->
             </div>
 

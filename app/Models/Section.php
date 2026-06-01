@@ -9,7 +9,7 @@ class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['identifier', 'title', 'subtitle_top', 'subtitle_bottom'];
+    protected $fillable = ['identifier', 'title', 'subtitle_top', 'subtitle_bottom', 'title_font', 'title_color', 'subtitle_color'];
 
     public function images()
     {
