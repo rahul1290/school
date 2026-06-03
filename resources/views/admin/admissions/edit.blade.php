@@ -45,20 +45,39 @@
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Class <span class="text-red-500">*</span></label>
                                 <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white" id="classSelect">
                                     <option value="">Select Class</option>
-                                    @foreach(['Nursery','LKG','UKG','1','2','3','4','5','6','7','8','9','10','11','12'] as $cls)
-                                        <option value="{{ $cls == '1' ? '1st' : ($cls == '2' ? '2nd' : ($cls == '3' ? '3rd' : ($cls == 'Nursery' || $cls == 'LKG' || $cls == 'UKG' ? $cls : $cls.'th'))) }}" {{ old('class', $admission->class) == ($cls == '1' ? '1st' : ($cls == '2' ? '2nd' : ($cls == '3' ? '3rd' : ($cls == 'Nursery' || $cls == 'LKG' || $cls == 'UKG' ? $cls : $cls.'th')))) ? 'selected' : '' }}>{{ $cls == '1' ? '1st' : ($cls == '2' ? '2nd' : ($cls == '3' ? '3rd' : ($cls == 'Nursery' || $cls == 'LKG' || $cls == 'UKG' ? $cls : $cls.'th'))) }}</option>
-                                    @endforeach
+                                    <option value="Nursery" {{ old('class', $admission->class) == 'Nursery' ? 'selected' : '' }}>Nursery</option>
+                                    <option value="LKG" {{ old('class', $admission->class) == 'LKG' ? 'selected' : '' }}>LKG</option>
+                                    <option value="UKG" {{ old('class', $admission->class) == 'UKG' ? 'selected' : '' }}>UKG</option>
+                                    <option value="1" {{ old('class', $admission->class) == '1' ? 'selected' : '' }}>1st</option>
+                                    <option value="2" {{ old('class', $admission->class) == '2' ? 'selected' : '' }}>2nd</option>
+                                    <option value="3" {{ old('class', $admission->class) == '3' ? 'selected' : '' }}>3rd</option>
+                                    <option value="4" {{ old('class', $admission->class) == '4' ? 'selected' : '' }}>4th</option>
+                                    <option value="5" {{ old('class', $admission->class) == '5' ? 'selected' : '' }}>5th</option>
+                                    <option value="6" {{ old('class', $admission->class) == '6' ? 'selected' : '' }}>6th</option>
+                                    <option value="7" {{ old('class', $admission->class) == '7' ? 'selected' : '' }}>7th</option>
+                                    <option value="8" {{ old('class', $admission->class) == '8' ? 'selected' : '' }}>8th</option>
+                                    <option value="9" {{ old('class', $admission->class) == '9' ? 'selected' : '' }}>9th</option>
+                                    <option value="10" {{ old('class', $admission->class) == '10' ? 'selected' : '' }}>10th</option>
+                                    <option value="11" {{ old('class', $admission->class) == '11' ? 'selected' : '' }}>11th</option>
+                                    <option value="12" {{ old('class', $admission->class) == '12' ? 'selected' : '' }}>12th</option>
                                 </select>
                             </div>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth <span class="text-red-500">*</span></label>
-                            <input type="date" name="dob" value="{{ old('dob', $admission->dob) }}" required id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <input type="date" name="dob" value="{{ old('dob', $admission->dob) }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <input type="hidden" name="dob_words" value="{{ old('dob_words', $admission->dob_words) }}" id="dob_words" required>
+                            <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words', $admission->dob_words) }}</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">In words <span class="text-red-500">*</span></label>
-                            <input type="text" name="dob_words" value="{{ old('dob_words', $admission->dob_words) }}" id="dob_words" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
+                            <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                <option value="">Select Blood Group</option>
+                                @foreach(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $bg)
+                                    <option value="{{ $bg }}" {{ old('blood_group', $admission->blood_group) == $bg ? 'selected' : '' }}>{{ $bg }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         
                         <div>
@@ -70,7 +89,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Caste (जाति) <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Caste <span class="text-red-500">*</span></label>
                             <input type="text" name="caste" value="{{ old('caste', $admission->caste) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         
@@ -90,7 +109,7 @@
                                 @endforeach
                             </select>
                         </div>
-
+ 
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No. <span class="text-red-500">*</span></label>
                             <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no', $admission->aadhaar_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -99,18 +118,18 @@
                             <label class="block text-sm font-medium text-slate-700 mb-1">APAAR ID <span class="text-red-500">*</span></label>
                             <input type="text" name="apaar_id" value="{{ old('apaar_id', $admission->apaar_id) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
-
+ 
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">PEN No. <span class="text-red-500">*</span></label>
-                            <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">PEN No.</label>
+                            <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Bank Account No. <span class="text-red-500">*</span></label>
-                            <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Bank Account No.</label>
+                            <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">IFSC Code <span class="text-red-500">*</span></label>
-                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">IFSC Code</label>
+                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
                         </div>
                     </div>
                 </div>
@@ -128,9 +147,21 @@
                             <label class="block text-sm font-medium text-slate-700 mb-1">Class</label>
                             <select name="prev_class" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                 <option value="">Select Class</option>
-                                @foreach(['Nursery','LKG','UKG','1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th','11th','12th'] as $cls)
-                                    <option value="{{ $cls }}" {{ old('prev_class', $admission->prev_class) == $cls ? 'selected' : '' }}>{{ $cls }}</option>
-                                @endforeach
+                                <option value="Nursery" {{ old('prev_class', $admission->prev_class) == 'Nursery' ? 'selected' : '' }}>Nursery</option>
+                                <option value="LKG" {{ old('prev_class', $admission->prev_class) == 'LKG' ? 'selected' : '' }}>LKG</option>
+                                <option value="UKG" {{ old('prev_class', $admission->prev_class) == 'UKG' ? 'selected' : '' }}>UKG</option>
+                                <option value="1" {{ old('prev_class', $admission->prev_class) == '1' ? 'selected' : '' }}>1st</option>
+                                <option value="2" {{ old('prev_class', $admission->prev_class) == '2' ? 'selected' : '' }}>2nd</option>
+                                <option value="3" {{ old('prev_class', $admission->prev_class) == '3' ? 'selected' : '' }}>3rd</option>
+                                <option value="4" {{ old('prev_class', $admission->prev_class) == '4' ? 'selected' : '' }}>4th</option>
+                                <option value="5" {{ old('prev_class', $admission->prev_class) == '5' ? 'selected' : '' }}>5th</option>
+                                <option value="6" {{ old('prev_class', $admission->prev_class) == '6' ? 'selected' : '' }}>6th</option>
+                                <option value="7" {{ old('prev_class', $admission->prev_class) == '7' ? 'selected' : '' }}>7th</option>
+                                <option value="8" {{ old('prev_class', $admission->prev_class) == '8' ? 'selected' : '' }}>8th</option>
+                                <option value="9" {{ old('prev_class', $admission->prev_class) == '9' ? 'selected' : '' }}>9th</option>
+                                <option value="10" {{ old('prev_class', $admission->prev_class) == '10' ? 'selected' : '' }}>10th</option>
+                                <option value="11" {{ old('prev_class', $admission->prev_class) == '11' ? 'selected' : '' }}>11th</option>
+                                <option value="12" {{ old('prev_class', $admission->prev_class) == '12' ? 'selected' : '' }}>12th</option>
                             </select>
                         </div>
                         <div>
@@ -322,5 +353,31 @@ function convertDateToWords(dateString) {
     const yearStr = numToWords(year).trim();
     return `${dayStr} of ${month} ${yearStr}`;
 }
+</script>
+
+<style>
+    @media print {
+        select.placeholder-selected {
+            color: transparent !important;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide dropdown default placeholder value during print
+    const selects = document.querySelectorAll('select');
+    const updateSelectPlaceholder = (sel) => {
+        if (sel.value === "") {
+            sel.classList.add('placeholder-selected');
+        } else {
+            sel.classList.remove('placeholder-selected');
+        }
+    };
+    selects.forEach(sel => {
+        updateSelectPlaceholder(sel);
+        sel.addEventListener('change', () => updateSelectPlaceholder(sel));
+    });
+});
 </script>
 @endsection

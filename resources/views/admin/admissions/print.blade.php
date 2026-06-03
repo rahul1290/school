@@ -7,14 +7,15 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0">
         
         <!-- Header -->
-        <div class="mb-10 print:mb-8">
-            <div class="flex items-center justify-start gap-4 md:gap-6 mb-8 print:mb-6">
+        <div class="mb-10 print:mb-8 relative">
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 md:h-20 w-auto object-contain print:h-16">
-                <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 font-['Outfit'] print:text-2xl uppercase tracking-wider text-left">Gyanoday Vidya Niketan</h1>
             </div>
-            <div class="text-center">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-800 font-['Outfit'] print:text-xl">Admission Form</h2>
-                <p class="text-xl text-slate-600 print:text-sm mt-1 print:mt-0 font-medium">Academic Session 2026-27</p>
+            <div class="text-center w-full px-20 md:px-24">
+                <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 font-['Outfit'] print:text-2xl uppercase tracking-wider">Gyanoday Vidya Niketan</h1>
+                <p class="text-sm md:text-base text-slate-700 font-bold tracking-wide mt-1 print:text-xs">Deorbija</p></br>
+                <h2 class="text-xl md:text-2xl font-bold text-slate-800 font-['Outfit'] mt-2 print:text-lg">Admission Form</h2>
+                <p class="text-sm md:text-base text-slate-600 font-medium mt-0.5 print:text-xs">Academic Session 2026-27</p>
             </div>
         </div>
 
@@ -47,10 +48,11 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth <span class="text-red-500">*</span></label>
                         <input type="date" name="dob" value="{{ $admission->dob }}" readonly id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <p class="text-sm text-slate-600 mt-1.5 font-medium print:text-xs">{{ $admission->dob_words }}</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">In words <span class="text-red-500">*</span></label>
-                        <input type="text" name="dob_words" value="{{ $admission->dob_words }}" id="dob_words" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Blood Group</label>
+                        <input type="text" value="{{ $admission->blood_group }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     
                     <div>
@@ -58,7 +60,7 @@
                         <input type="text" value="{{ $admission->category }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste (जाति) <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste <span class="text-red-500">*</span></label>
                         <input type="text" name="caste" value="{{ $admission->caste }}" placeholder="Enter Caste" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
@@ -70,7 +72,7 @@
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Nationality <span class="text-red-500">*</span></label>
                         <input type="text" value="{{ $admission->nationality }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                     </div>
-
+ 
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
                         <input type="number" name="aadhaar_no" value="{{ $admission->aadhaar_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
@@ -79,9 +81,9 @@
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID <span class="text-red-500">*</span></label>
                         <input type="text" name="apaar_id" value="{{ $admission->apaar_id }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
-
+ 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No.</label>
                         <input type="text" name="pen_no" value="{{ $admission->pen_no }}" readonly class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
@@ -166,7 +168,7 @@
             </div>
 
             <!-- 4. Residential Address -->
-            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
+            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800 page-break-section">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">4. Residential Address</h2>
                 <div class="space-y-6 print:space-y-4">
                     <div>
@@ -193,7 +195,7 @@
             <div class="relative z-10 p-8 print:p-4 print:border-b-2 print:border-slate-800">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">5. Declaration By Parent / Guardian</h2>
                 
-                <div class="mb-10 print:mb-6">
+                <div class="mb-10 print:mb-6 print:mt-4">
                     <label class="flex items-start gap-3">
                         <input type="checkbox" readonly class="mt-1 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded print:border-slate-600 print:appearance-auto">
                         <span class="text-slate-700 leading-relaxed text-sm md:text-base print:text-sm">
@@ -203,8 +205,14 @@
                 </div>
 
                 <div class="flex justify-between items-end mt-24 pt-16 print:mt-24 print:pt-16">
-                    <div class="w-40 border-b-2 border-slate-800 text-center pb-2 font-medium text-slate-700 print:text-sm">Date</div>
-                    <div class="w-64 border-b-2 border-slate-800 text-center pb-2 font-medium text-slate-700 print:text-sm">Parent / Guardian Signature</div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-medium text-slate-700 print:text-sm whitespace-nowrap">Date:</span>
+                        <div class="w-44 border-b-2 border-slate-800 h-5"></div>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-medium text-slate-700 print:text-sm whitespace-nowrap">Parent / Guardian Signature:</span>
+                        <div class="w-64 border-b-2 border-slate-800 h-5"></div>
+                    </div>
                 </div>
             </div>
 
@@ -240,10 +248,10 @@
                     <h2 class="text-xl font-bold text-slate-800 uppercase tracking-wider inline-block border-2 border-slate-800 px-6 py-2 print:text-lg">For School Office Use Only</h2>
                 </div>
                 
-                <div class="space-y-8 print:space-y-6">
+                <div class="space-y-8 print:space-y-6 print:mt-6">
                     <div class="flex flex-wrap items-center gap-6">
                         <span class="font-bold text-slate-800 print:text-sm">Admission status:</span>
-                        <label class="flex items-center gap-2">
+                        <label class="flex items-center gap-3 print:mt-4">
                             <input type="checkbox" {{ $admission->status === 'Approved' ? 'checked' : '' }} disabled class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto">
                             <span class="text-slate-700 font-medium print:text-sm">Approved</span>
                         </label>
@@ -252,6 +260,8 @@
                             <span class="text-slate-700 font-medium print:text-sm">Rejected</span>
                         </label>
                     </div>
+
+                    <br>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-6">
                         <div>
@@ -270,7 +280,10 @@
                     </div>
 
                     <div class="flex justify-end mt-20 pt-20 print:mt-20 print:pt-20">
-                        <div class="w-64 border-b-2 border-slate-800 text-center pb-2 font-bold text-slate-800 print:text-sm">Admission In-charge Signature</div>
+                        <div class="flex items-end gap-2">
+                            <span class="font-bold text-slate-800 print:text-sm whitespace-nowrap">Admission In-charge Signature:</span>
+                            <div class="w-64 border-b-2 border-slate-800 h-5"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -309,7 +322,7 @@
         
         /* Form Container Magic */
         form {
-            border: 2px solid #0f172a !important;
+            border: none !important;
             border-radius: 0 !important;
             padding: 0 !important;
             box-shadow: none !important;
@@ -337,12 +350,13 @@
 
         /* Section Styling */
         form > div.relative.z-10 {
-            border-bottom: 2px solid #0f172a !important;
+            border: 2px solid #0f172a !important;
+            margin-bottom: 1.5rem !important;
             padding: 0.4rem 1rem !important;
             page-break-inside: avoid;
         }
-        form > div.relative.z-10:last-of-type {
-            border-bottom: none !important;
+        .page-break-section {
+            page-break-before: always;
         }
 
         /* Section Headers */

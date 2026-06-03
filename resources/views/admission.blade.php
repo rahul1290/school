@@ -22,14 +22,15 @@
     </div>
 
     <!-- Print-only minimal header -->
-    <div class="hidden print:block mb-8">
-        <div class="flex items-center justify-start gap-4 mb-6">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 w-auto object-contain">
-            <h1 class="text-2xl font-extrabold text-slate-900 font-['Outfit'] uppercase tracking-wider text-left">Gyanoday Vidya Niketan</h1>
+    <div class="hidden print:block mb-8 relative">
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20 w-auto object-contain">
         </div>
-        <div class="text-center">
-            <h2 class="text-xl font-bold text-slate-800 font-['Outfit']">Admission Form</h2>
-            <p class="text-sm text-slate-600 font-medium">Academic Session 2026-27</p>
+        <div class="text-center w-full px-24">
+            <h1 class="text-2xl font-extrabold text-slate-900 font-['Outfit'] uppercase tracking-wider">Gyanoday Vidya Niketan</h1>
+            <p class="text-base text-slate-700 font-bold tracking-wide mt-1">Deorbija</p>
+            <h2 class="text-lg font-bold text-slate-800 font-['Outfit'] mt-2">Admission Form</h2>
+            <p class="text-xs text-slate-600 font-semibold">Academic Session 2026-27</p>
         </div>
     </div>
 
@@ -100,11 +101,23 @@
                     
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth <span class="text-red-500">*</span></label>
-                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="document.getElementById('dob_words').value = convertDateToWords(this.value);" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
+                        <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium print:text-xs">{{ old('dob_words') }}</p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">In words <span class="text-red-500">*</span></label>
-                        <input type="text" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Blood Group</label>
+                        <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
                     </div>
                     
                     <div>
@@ -119,7 +132,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste (जाति) <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste <span class="text-red-500">*</span></label>
                         <input type="text" name="caste" value="{{ old('caste') }}" placeholder="Enter Caste" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
@@ -150,19 +163,19 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="pen_no" value="{{ old('pen_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No.</label>
+                        <input type="text" name="pen_no" value="{{ old('pen_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div class="print:hidden">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No. <span class="text-red-500">*</span></label>
-                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No.</label>
+                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     </div>
                     <div class="print:hidden">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code <span class="text-red-500">*</span></label>
-                        <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code</label>
+                        <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
                     </div>
                     <div class="hidden print:block">
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no & Ifsc <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no & Ifsc</label>
                         <input type="text" value="{{ old('bank_account_no') ? old('bank_account_no') . ' / ' . old('ifsc_code') : '' }}" class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
@@ -276,7 +289,7 @@
             </div>
 
             <!-- 4. Residential Address -->
-            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
+            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800 page-break-section">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">4. Residential Address</h2>
                 <div class="space-y-6 print:space-y-4">
                     <div>
@@ -351,8 +364,14 @@
                 </div>
 
                 <div class="flex justify-between items-end mt-24 pt-16 print:mt-24 print:pt-16">
-                    <div class="w-40 border-b-2 border-slate-800 text-center pb-2 font-medium text-slate-700 print:text-sm">Date</div>
-                    <div class="w-64 border-b-2 border-slate-800 text-center pb-2 font-medium text-slate-700 print:text-sm">Parent / Guardian Signature</div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-medium text-slate-700 print:text-sm whitespace-nowrap">Date:</span>
+                        <div class="w-44 border-b-2 border-slate-800 h-5"></div>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <span class="font-medium text-slate-700 print:text-sm whitespace-nowrap">Parent / Guardian Signature:</span>
+                        <div class="w-64 border-b-2 border-slate-800 h-5"></div>
+                    </div>
                 </div>
             </div>
 
@@ -392,14 +411,16 @@
                     <div class="flex flex-wrap items-center gap-6">
                         <span class="font-bold text-slate-800 print:text-sm">Admission status:</span>
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto">
+                            <input type="checkbox" disabled class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
                             <span class="text-slate-700 font-medium print:text-sm">Approved</span>
                         </label>
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto">
+                            <input type="checkbox" disabled class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
                             <span class="text-slate-700 font-medium print:text-sm">Rejected</span>
                         </label>
                     </div>
+
+                    <br>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-6">
                         <div>
@@ -418,20 +439,32 @@
                     </div>
 
                     <div class="flex justify-end mt-20 pt-20 print:mt-20 print:pt-20">
-                        <div class="w-64 border-b-2 border-slate-800 text-center pb-2 font-bold text-slate-800 print:text-sm">Admission In-charge Signature</div>
+                        <div class="flex items-end gap-2">
+                            <span class="font-bold text-slate-800 print:text-sm whitespace-nowrap">Admission In-charge Signature:</span>
+                            <div class="w-64 border-b-2 border-slate-800 h-5"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="relative z-10 p-8 bg-slate-100 flex flex-col sm:flex-row justify-center gap-4 print:hidden">
-                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto text-lg">
-                    Submit Application
-                </button>
-                <button type="button" onclick="window.print()" class="px-8 py-3 bg-white border-2 border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all w-full sm:w-auto flex items-center justify-center gap-2 text-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Print Form
-                </button>
+                @if(session('success'))
+                    <button type="button" onclick="window.print()" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto flex items-center justify-center gap-2 text-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        Print Form
+                    </button>
+                    <a href="{{ url()->current() }}" class="px-8 py-3 bg-white border-2 border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all w-full sm:w-auto text-center text-lg flex items-center justify-center">
+                        New Application
+                    </a>
+                @else
+                    <button type="submit" class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto text-lg">
+                        Submit Application
+                    </button>
+                    <button type="button" onclick="window.location.href=window.location.pathname" class="px-8 py-3 bg-white border-2 border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all w-full sm:w-auto text-lg">
+                        Cancel
+                    </button>
+                @endif
             </div>
         </form>
 
@@ -445,6 +478,9 @@
             size: auto;
             margin: 8mm;
         }
+        select.placeholder-selected {
+            color: transparent !important;
+        }
         body {
             background-color: white !important;
             color: black !important;
@@ -457,7 +493,7 @@
         
         /* Form Container Magic */
         form {
-            border: 2px solid #0f172a !important;
+            border: none !important;
             border-radius: 0 !important;
             padding: 0 !important;
             box-shadow: none !important;
@@ -485,12 +521,13 @@
 
         /* Section Styling */
         form > div.relative.z-10 {
-            border-bottom: 2px solid #0f172a !important;
+            border: 2px solid #0f172a !important;
+            margin-bottom: 1.5rem !important;
             padding: 0.4rem 1rem !important;
             page-break-inside: avoid;
         }
-        form > div.relative.z-10:last-of-type {
-            border-bottom: none !important;
+        .page-break-section {
+            page-break-before: always;
         }
 
         /* Section Headers */
@@ -621,6 +658,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Automatically set the selected value for dropdowns based on old input
     const oldValues = {
         'class': "{{ old('class') }}",
+        'blood_group': "{{ old('blood_group') }}",
         'category': "{{ old('category') }}",
         'gender': "{{ old('gender') }}",
         'nationality': "{{ old('nationality') }}",
@@ -639,6 +677,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
+    // Hide dropdown default placeholder value during print
+    const selects = document.querySelectorAll('select');
+    const updateSelectPlaceholder = (sel) => {
+        if (sel.value === "") {
+            sel.classList.add('placeholder-selected');
+        } else {
+            sel.classList.remove('placeholder-selected');
+        }
+    };
+    selects.forEach(sel => {
+        updateSelectPlaceholder(sel);
+        sel.addEventListener('change', () => updateSelectPlaceholder(sel));
+    });
 });
 </script>
 
