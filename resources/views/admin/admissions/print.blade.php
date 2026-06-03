@@ -204,7 +204,7 @@
                     </label>
                 </div>
 
-                <div class="flex justify-between items-end mt-24 pt-16 print:mt-24 print:pt-16">
+                <div class="flex justify-between items-end mt-24 pt-16 print:mt-6 print:pt-2">
                     <div class="flex items-end gap-2">
                         <span class="font-medium text-slate-700 print:text-sm whitespace-nowrap">Date:</span>
                         <div class="w-44 border-b-2 border-slate-800 h-5"></div>
@@ -219,7 +219,7 @@
             <!-- Checklist -->
             <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">Enclosures / Checklist of Required Documents</h2>
-                <div class="space-y-3 print:space-y-2">
+                <div class="space-y-3 print:space-y-0 print:grid print:grid-cols-2 print:gap-x-6 print:gap-y-1">
                     @php
                         $documents = [
                             '1. Photocopy of Birth Certificate',
@@ -279,7 +279,7 @@
                         <div class="h-8 border-b-2 border-slate-400 w-full md:w-1/2 print:border-slate-800 print:h-6 px-2 font-medium" style="display:flex; align-items:flex-end;">{{ $admission->verified_by }}</div>
                     </div>
 
-                    <div class="flex justify-end mt-20 pt-20 print:mt-20 print:pt-20">
+                    <div class="flex justify-end mt-20 pt-20 print:mt-6 print:pt-2">
                         <div class="flex items-end gap-2">
                             <span class="font-bold text-slate-800 print:text-sm whitespace-nowrap">Admission In-charge Signature:</span>
                             <div class="w-64 border-b-2 border-slate-800 h-5"></div>
@@ -351,7 +351,7 @@
         /* Section Styling */
         form > div.relative.z-10 {
             border: 2px solid #0f172a !important;
-            margin-bottom: 1.5rem !important;
+            margin-bottom: 0.75rem !important;
             padding: 0.4rem 1rem !important;
             page-break-inside: avoid;
         }
