@@ -3,7 +3,7 @@
 @section('title', 'Admission Form - Gyanoday Vidya Niketan')
 
 @section('content')
-<div class="bg-slate-50 min-h-screen pb-24 print:pb-0 print:bg-transparent">
+<div class="bg-slate-50 min-h-screen pb-24 print:pb-0 print:bg-transparent"> 
     
     <!-- Standard Header section -->
     <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-950 py-16 px-4 md:px-8 text-center relative overflow-hidden print:hidden">

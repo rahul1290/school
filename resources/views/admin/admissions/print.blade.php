@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="bg-slate-50 py-12 pt-28 print:pt-0 print:py-0 print:bg-transparent min-h-screen">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0"> 
         
         <!-- Header -->
         <div class="mb-10 print:mb-8 relative">
