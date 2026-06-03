@@ -16,7 +16,7 @@ class PageSeeder extends Seeder
         \App\Models\Page::updateOrCreate(
             ['slug' => 'about-us'],
             [
-                'title' => 'About Gyanoday Vidya Niketan',
+                'title' => 'About Gyanoday Vidya Niketan Deorbija',
                 'content' => '<h2>Our History</h2><p>Gyanoday Vidya Niketan was established with the vision of providing holistic education deeply rooted in traditional values and modern excellence.</p><br><h2>Our Mission</h2><p>The divine destination for learners, where attaining Moksh is the ultimate goal of life. We focus on character building, moral values, and academic excellence.</p>',
             ]
         );
