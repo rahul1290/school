@@ -22,14 +22,12 @@
     </div>
 
     <!-- Print-only minimal header -->
-    <div class="hidden print:block mb-8 relative">
-        <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-20 w-auto object-contain">
-        </div>
-        <div class="text-center w-full px-24">
+    <div class="hidden print:flex flex-col items-center mb-6 text-center w-full">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-24 w-auto object-contain mb-3">
+        <div>
             <h1 class="text-2xl font-extrabold text-slate-900 font-['Outfit'] uppercase tracking-wider">Gyanoday Vidya Niketan</h1>
-            <p class="text-base text-slate-700 font-bold tracking-wide mt-1">Deorbija</p>
-            <h2 class="text-lg font-bold text-slate-800 font-['Outfit'] mt-2">Admission Form</h2>
+            <p class="text-base text-slate-700 font-bold tracking-wide mt-0.5">Deorbija</p></br>
+            <h2 class="text-lg font-bold text-slate-800 font-['Outfit'] mt-1.5">Admission Form</h2>
             <p class="text-xs text-slate-600 font-semibold">Academic Session 2026-27</p>
         </div>
     </div>
@@ -73,11 +71,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div class="md:col-span-2 print:col-span-2 flex gap-4">
                         <div class="flex-grow">
-                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name</label>
                             <input type="text" name="name" value="{{ old('name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                         <div class="w-1/3">
-                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class</label>
                             <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                                 <option value="">Select Class</option>
                                 <option value="Nursery">Nursery</option>
@@ -100,7 +98,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth</label>
                         <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
                         <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium print:text-xs">{{ old('dob_words') }}</p>
@@ -121,7 +119,7 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Category <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Category</label>
                         <select name="category" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="">Select Category</option>
                             <option value="General">General</option>
@@ -132,12 +130,12 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Caste</label>
                         <input type="text" name="caste" value="{{ old('caste') }}" placeholder="Enter Caste" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Gender <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Gender</label>
                         <select name="gender" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value=""></option>
                             <option value="Male">Male</option>
@@ -146,7 +144,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Nationality <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Nationality</label>
                         <select name="nationality" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                             <option value="Indian">Indian</option>
                             <option value="Other">Other</option>
@@ -154,11 +152,11 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No.</label>
                         <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID</label>
                         <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
@@ -175,7 +173,7 @@
                         <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
                     </div>
                     <div class="hidden print:block">
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no & Ifsc</label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no. & Ifsc</label>
                         <input type="text" value="{{ old('bank_account_no') ? old('bank_account_no') . ' / ' . old('ifsc_code') : '' }}" class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
@@ -248,20 +246,20 @@
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">3. Parent / Guardian Details</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Father's Name <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Father's Name</label>
                         <input type="text" name="father_name" value="{{ old('father_name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No.</label>
                         <input type="number" name="father_aadhaar" value="{{ old('father_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation</label>
                         <input type="text" name="father_occupation" value="{{ old('father_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No.</label>
                         <input type="tel" name="father_mobile" value="{{ old('father_mobile') }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
@@ -269,31 +267,31 @@
                     <div class="md:col-span-2 print:col-span-2 border-t border-slate-100 my-2 print:my-0"></div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mother's Name <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mother's Name</label>
                         <input type="text" name="mother_name" value="{{ old('mother_name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No.</label>
                         <input type="number" name="mother_aadhaar" value="{{ old('mother_aadhaar') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Occupation</label>
                         <input type="text" name="mother_occupation" value="{{ old('mother_occupation') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No. <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Mob. No.</label>
                         <input type="tel" name="mother_mobile" value="{{ old('mother_mobile') }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
 
             <!-- 4. Residential Address -->
-            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800 page-break-section">
+            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:mt-[30px] print:border-b-2 print:border-slate-800 page-break-section">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">4. Residential Address</h2>
                 <div class="space-y-6 print:space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Current Address <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Current Address</label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input type="text" name="address_line_1" value="{{ old('address_line_1') }}" placeholder="Line 1" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                             <input type="text" name="address_line_2" value="{{ old('address_line_2') }}" placeholder="Line 2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
@@ -301,7 +299,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">State <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">State</label>
                             <select name="state" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                                 <option value="">Select State</option>
                                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -343,7 +341,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Pin Code <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Pin Code</label>
                             <input type="text" name="pin_code" value="{{ old('pin_code') }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
                     </div>
@@ -376,7 +374,7 @@
             </div>
 
             <!-- Checklist -->
-            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800">
+            <div class="relative z-10 p-8 border-b border-slate-100 print:p-4 print:border-b-2 print:border-slate-800 print:mt-[30px]">
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">Enclosures / Checklist of Required Documents</h2>
                 <div class="space-y-3 print:space-y-0 print:grid print:grid-cols-2 print:gap-x-6 print:gap-y-1">
                     @php
@@ -389,7 +387,8 @@
                             '6. Previous School Report card/Marksheet',
                             '7. Original Transfer Certificate',
                             '8. Migration Certificate (if applicable)',
-                            '9. Photocopy of Adhar card of parents'
+                            '9. Photocopy of Parents Adhar Card',
+                            '10. Photocopy of Parent Ration Card'
                         ];
                     @endphp
                     @foreach($documents as $doc)
@@ -408,37 +407,43 @@
                 </div>
                 
                 <div class="space-y-8 print:space-y-6">
-                    <div class="flex flex-wrap items-center gap-6">
-                        <span class="font-bold text-slate-800 print:text-sm">Admission status:</span>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" disabled class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
-                            <span class="text-slate-700 font-medium print:text-sm">Approved</span>
-                        </label>
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" disabled class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
-                            <span class="text-slate-700 font-medium print:text-sm">Rejected</span>
-                        </label>
-                    </div>
-
-                    <br>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-6">
-                        <div>
-                            <label class="block font-bold text-slate-800 mb-1 print:text-sm">Admission No.</label>
-                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                <div class="flex flex-col md:flex-row print:flex-row gap-8 items-start justify-between">
+                    <div class="flex-grow space-y-8 print:space-y-6 w-full">
+                        <div class="flex flex-wrap items-center gap-6">
+                            <span class="font-bold text-slate-800 print:text-sm">Admission status:</span>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" disabled class="h-5 w-5 text-indigo-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
+                                <span class="text-slate-700 font-medium print:text-sm">Approved</span>
+                            </label>
+                            <label class="flex items-center gap-2">
+                                <input type="checkbox" disabled class="h-5 w-5 text-red-600 border-slate-400 print:border-slate-800 print:appearance-auto cursor-not-allowed">
+                                <span class="text-slate-700 font-medium print:text-sm">Rejected</span>
+                            </label>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:grid-cols-2 print:gap-6">
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1 print:text-sm">Admission No.</label>
+                                <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-800 mb-1 print:text-sm">Date</label>
+                                <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                            </div>
+                        </div>
+
                         <div>
-                            <label class="block font-bold text-slate-800 mb-1 print:text-sm">Date</label>
-                            <div class="h-8 border-b-2 border-slate-400 w-full print:border-slate-800 print:h-6"></div>
+                            <label class="block font-bold text-slate-800 mb-1 print:text-sm">Verified By</label>
+                            <div class="h-8 border-b-2 border-slate-400 w-full md:w-1/2 print:border-slate-800 print:h-6"></div>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block font-bold text-slate-800 mb-1 print:text-sm">Verified By</label>
-                        <div class="h-8 border-b-2 border-slate-400 w-full md:w-1/2 print:border-slate-800 print:h-6"></div>
+                    <div class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start">
+                        <span>Student's<br>Photo</span>
                     </div>
+                </div>
 
-                    <div class="flex justify-end mt-20 pt-20 print:mt-6 print:pt-2">
+                    <div class="flex justify-end mt-20 pt-20 print:mt-10 print:pt-10">
                         <div class="flex items-end gap-2">
                             <span class="font-bold text-slate-800 print:text-sm whitespace-nowrap">Admission In-charge Signature:</span>
                             <div class="w-64 border-b-2 border-slate-800 h-5"></div>
@@ -476,7 +481,7 @@
     @media print {
         @page {
             size: auto;
-            margin: 8mm;
+            margin: 0;
         }
         select.placeholder-selected {
             color: transparent !important;
@@ -485,6 +490,7 @@
             background-color: white !important;
             color: black !important;
             font-size: 10pt !important;
+            margin: 15mm 8mm 8mm 8mm !important;
         }
         /* Hide app header and footers */
         header, footer, .bottom-0, .print\:hidden {
