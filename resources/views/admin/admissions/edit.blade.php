@@ -18,6 +18,12 @@
                 <p class="text-slate-300 mt-1">Submitted on {{ $admission->created_at->format('M d, Y h:i A') }}</p>
             </div>
 
+            @if(session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 m-8 mb-0 rounded relative" role="alert">
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                </div>
+            @endif
+
             @if($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 m-8 mb-0 rounded relative" role="alert">
                     <ul class="list-disc list-inside">
@@ -28,7 +34,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.admissions.update', $admission) }}" method="POST" class="relative">
+            <form action="{{ route('admin.admissions.update', $admission) }}" method="POST" enctype="multipart/form-data" class="relative">
                 @csrf
                 @method('PUT')
                 
@@ -38,11 +44,11 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2 flex gap-4">
                             <div class="flex-grow">
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Name <span class="text-red-500">*</span></label>
-                                <input type="text" name="name" value="{{ old('name', $admission->name) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Name</label>
+                                <input type="text" name="name" value="{{ old('name', $admission->name) }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             </div>
                             <div class="w-1/3">
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Class <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Class</label>
                                 <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white" id="classSelect">
                                     <option value="">Select Class</option>
                                     <option value="Nursery" {{ old('class', $admission->class) == 'Nursery' ? 'selected' : '' }}>Nursery</option>
@@ -65,23 +71,7 @@
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth <span class="text-red-500">*</span></label>
-                            <input type="date" name="dob" value="{{ old('dob', $admission->dob) }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                            <input type="hidden" name="dob_words" value="{{ old('dob_words', $admission->dob_words) }}" id="dob_words" required>
-                            <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words', $admission->dob_words) }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
-                            <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
-                                <option value="">Select Blood Group</option>
-                                @foreach(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $bg)
-                                    <option value="{{ $bg }}" {{ old('blood_group', $admission->blood_group) == $bg ? 'selected' : '' }}>{{ $bg }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Category <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Category</label>
                             <select name="category" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                 @foreach(['General', 'OBC', 'SC', 'ST', 'Other'] as $cat)
                                     <option value="{{ $cat }}" {{ old('category', $admission->category) == $cat ? 'selected' : '' }}>{{ $cat }}</option>
@@ -89,12 +79,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Caste <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Caste</label>
                             <input type="text" name="caste" value="{{ old('caste', $admission->caste) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Gender <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Gender</label>
                             <select name="gender" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                 @foreach(['Male', 'Female', 'Other'] as $gen)
                                     <option value="{{ $gen }}" {{ old('gender', $admission->gender) == $gen ? 'selected' : '' }}>{{ $gen }}</option>
@@ -102,7 +92,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Nationality <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nationality</label>
                             <select name="nationality" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                 @foreach(['Indian', 'Other'] as $nat)
                                     <option value="{{ $nat }}" {{ old('nationality', $admission->nationality) == $nat ? 'selected' : '' }}>{{ $nat }}</option>
@@ -111,25 +101,61 @@
                         </div>
  
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No. <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No.</label>
                             <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no', $admission->aadhaar_no) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">APAAR ID <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">APAAR ID</label>
                             <input type="text" name="apaar_id" value="{{ old('apaar_id', $admission->apaar_id) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
+                        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+                                <input type="date" name="dob" value="{{ old('dob', $admission->dob) }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <input type="hidden" name="dob_words" value="{{ old('dob_words', $admission->dob_words) }}" id="dob_words" required>
+                                <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words', $admission->dob_words) }}</p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
+                                <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                    <option value="">Select Blood Group</option>
+                                    @foreach(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as $bg)
+                                        <option value="{{ $bg }}" {{ old('blood_group', $admission->blood_group) == $bg ? 'selected' : '' }}>{{ $bg }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Student Photo</label>
+                                <div class="flex items-center gap-4">
+                                    <div id="photo_preview_box" class="w-16 h-20 border border-slate-300 rounded-lg overflow-hidden flex items-center justify-center bg-slate-50 flex-shrink-0">
+                                        @if($admission->student_photo)
+                                            <img id="photo_preview" src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-cover">
+                                        @else
+                                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-cover">
+                                            <span id="photo_placeholder_text" class="text-[10px] text-slate-400 font-bold uppercase">No Photo</span>
+                                        @endif
+                                    </div>
+                                    <div class="flex-grow">
+                                        <input type="file" name="student_photo" id="student_photo_input" accept="image/*" class="w-full px-4 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                        <p class="text-xs text-slate-500 mt-1">Allowed: JPG, JPEG, PNG. Max: 2MB.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
  
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">PEN No.</label>
-                            <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Bank Account No.</label>
-                            <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">IFSC Code</label>
-                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                        <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">PEN No.</label>
+                                <input type="text" name="pen_no" value="{{ old('pen_no', $admission->pen_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No.</label>
+                                <input type="text" name="bank_account_no" value="{{ old('bank_account_no', $admission->bank_account_no) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code</label>
+                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $admission->ifsc_code) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,41 +226,41 @@
                     <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg">3. Parent / Guardian Details</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Father's Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="father_name" value="{{ old('father_name', $admission->father_name) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Father's Name</label>
+                            <input type="text" name="father_name" value="{{ old('father_name', $admission->father_name) }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No. <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No.</label>
                             <input type="number" name="father_aadhaar" value="{{ old('father_aadhaar', $admission->father_aadhaar) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Occupation <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Occupation</label>
                             <input type="text" name="father_occupation" value="{{ old('father_occupation', $admission->father_occupation) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Mob. No. <span class="text-red-500">*</span></label>
-                            <input type="tel" name="father_mobile" value="{{ old('father_mobile', $admission->father_mobile) }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Mob. No.</label>
+                            <input type="tel" name="father_mobile" value="{{ old('father_mobile', $admission->father_mobile) }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
 
                         <div class="md:col-span-2 border-t border-slate-100 my-2"></div>
 
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Mother's Name <span class="text-red-500">*</span></label>
-                            <input type="text" name="mother_name" value="{{ old('mother_name', $admission->mother_name) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Mother's Name</label>
+                            <input type="text" name="mother_name" value="{{ old('mother_name', $admission->mother_name) }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No. <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No.</label>
                             <input type="number" name="mother_aadhaar" value="{{ old('mother_aadhaar', $admission->mother_aadhaar) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Occupation <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Occupation</label>
                             <input type="text" name="mother_occupation" value="{{ old('mother_occupation', $admission->mother_occupation) }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Mob. No. <span class="text-red-500">*</span></label>
-                            <input type="tel" name="mother_mobile" value="{{ old('mother_mobile', $admission->mother_mobile) }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Mob. No.</label>
+                            <input type="tel" name="mother_mobile" value="{{ old('mother_mobile', $admission->mother_mobile) }}" pattern="[0-9]{10}" minlength="10" maxlength="10" title="Must be exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
                     </div>
                 </div>
@@ -244,7 +270,7 @@
                     <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg">4. Residential Address</h2>
                     <div class="space-y-6">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Current Address <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Current Address</label>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input type="text" name="address_line_1" value="{{ old('address_line_1', $admission->address_line_1) }}" placeholder="Line 1" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                                 <input type="text" name="address_line_2" value="{{ old('address_line_2', $admission->address_line_2) }}" placeholder="Line 2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -252,7 +278,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">State <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">State</label>
                                 <select name="state" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
                                     <option value="">Select State</option>
                                     @php
@@ -271,7 +297,7 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Pin Code <span class="text-red-500">*</span></label>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Pin Code</label>
                                 <input type="text" name="pin_code" value="{{ old('pin_code', $admission->pin_code) }}" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             </div>
                         </div>
@@ -378,6 +404,29 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSelectPlaceholder(sel);
         sel.addEventListener('change', () => updateSelectPlaceholder(sel));
     });
+
+    // Live preview for selected student photo
+    const photoInput = document.getElementById('student_photo_input');
+    if (photoInput) {
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('photo_preview');
+                    const placeholder = document.getElementById('photo_placeholder_text');
+                    if (preview) {
+                        preview.src = event.target.result;
+                        preview.classList.remove('hidden');
+                    }
+                    if (placeholder) {
+                        placeholder.classList.add('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 });
 </script>
 @endsection

@@ -83,7 +83,18 @@ class AdmissionController extends Controller
             'address_line_2' => 'nullable|string|max:255',
             'state' => 'required|string|max:255',
             'pin_code' => 'required|string|max:255',
+            'student_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('student_photo')) {
+            if ($admission->student_photo && file_exists(public_path($admission->student_photo))) {
+                unlink(public_path($admission->student_photo));
+            }
+            $file = $request->file('student_photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/photos'), $filename);
+            $validated['student_photo'] = 'uploads/photos/' . $filename;
+        }
 
         $admission->update($validated);
 

@@ -9,7 +9,7 @@ class SectionImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['section_id', 'image_path', 'sort_order', 'is_active'];
+    protected $fillable = ['section_id', 'image_path', 'sort_order', 'is_active', 'student_name', 'title', 'description'];
 
     public function section()
     {

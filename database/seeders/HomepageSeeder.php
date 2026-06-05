@@ -71,6 +71,20 @@ class HomepageSeeder extends Seeder
                 'subtitle_top' => 'Creativity',
                 'subtitle_bottom' => 'Expressing our heritage',
                 'images' => []
+            ],
+            [
+                'identifier' => 'excellence',
+                'title' => 'Celebrating Academic Excellence',
+                'subtitle_top' => null,
+                'subtitle_bottom' => null,
+                'images' => [
+                    [
+                        'image_path' => 'images/achivers/ach1.jpeg',
+                        'student_name' => 'Anurag Tandon',
+                        'title' => 'One of Our Bright Students is Pursuing MBBS.',
+                        'description' => 'We are incredibly proud of our students whose dedication continues to set new benchmarks for academic success. Pursuing an MBBS is no small feat; it requires relentless perseverance and an unwavering commitment to serving humanity. At Gyanoday Vidya Niketan, we foster an enriching environment that combines rigorous textbook learning with critical thinking and personalized mentorship. Our holistic approach ensures every student is equipped to chase their most ambitious dreams. Seeing our alumni excel in highly competitive national examinations and secure placements in top medical institutions fills us with immense pride. They prove that with true determination, the sky is the limit.',
+                    ]
+                ]
             ]
         ];
 
@@ -86,13 +100,21 @@ class HomepageSeeder extends Seeder
 
             // Avoid duplicating images if seeder runs multiple times
             if ($section->images()->count() === 0) {
-                foreach ($secData['images'] as $index => $imgPath) {
-                    SectionImage::create([
-                        'section_id' => $section->id,
-                        'image_path' => $imgPath,
-                        'sort_order' => $index,
-                        'is_active' => true,
-                    ]);
+                foreach ($secData['images'] as $index => $imgInfo) {
+                    if (is_array($imgInfo)) {
+                        SectionImage::create(array_merge([
+                            'section_id' => $section->id,
+                            'sort_order' => $index,
+                            'is_active' => true,
+                        ], $imgInfo));
+                    } else {
+                        SectionImage::create([
+                            'section_id' => $section->id,
+                            'image_path' => $imgInfo,
+                            'sort_order' => $index,
+                            'is_active' => true,
+                        ]);
+                    }
                 }
             }
         }

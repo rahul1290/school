@@ -7,11 +7,11 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 print:px-0"> 
         
         <!-- Header -->
-        <div class="mb-10 print:mb-6 relative print:flex print:flex-col print:items-center print:text-center print:w-full">
-            <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center print:relative print:top-0 print:translate-y-0 print:mb-3">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 md:h-20 w-auto object-contain print:h-24">
-            </div>
-            <div class="text-center w-full px-20 md:px-24 print:px-0">
+        <div class="mb-10 print:mb-6 relative">
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center print:ml-[70px]">
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 md:h-20 w-auto object-contain print:h-24">
+</div>
+            <div class="text-center w-full px-20 md:px-24">
                 <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 font-['Outfit'] print:text-2xl uppercase tracking-wider">Gyanoday Vidya Niketan</h1>
                 <p class="text-sm md:text-base text-slate-700 font-bold tracking-wide mt-1 print:text-xs">Deorbija</p></br>
                 <h2 class="text-xl md:text-2xl font-bold text-slate-800 font-['Outfit'] mt-2 print:text-lg">Admission Form</h2>
@@ -281,8 +281,12 @@
                         </div>
                     </div>
 
-                    <div class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start">
-                        <span>Student's<br>Photo</span>
+                    <div class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start overflow-hidden">
+                        @if($admission->student_photo)
+                            <img src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-cover">
+                        @else
+                            <span>Student's<br>Photo</span>
+                        @endif
                     </div>
                 </div>
 

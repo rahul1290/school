@@ -22,9 +22,11 @@
     </div>
 
     <!-- Print-only minimal header -->
-    <div class="hidden print:flex flex-col items-center mb-6 text-center w-full">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-24 w-auto object-contain mb-3">
-        <div>
+    <div class="hidden print:block mb-6 relative w-full">
+        <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center print:ml-[70px]">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-24 w-auto object-contain">
+        </div>
+        <div class="text-center w-full px-24">
             <h1 class="text-2xl font-extrabold text-slate-900 font-['Outfit'] uppercase tracking-wider">Gyanoday Vidya Niketan</h1>
             <p class="text-base text-slate-700 font-bold tracking-wide mt-0.5">Deorbija</p></br>
             <h2 class="text-lg font-bold text-slate-800 font-['Outfit'] mt-1.5">Admission Form</h2>
@@ -57,7 +59,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admissions.store') }}" method="POST" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
+        <form action="{{ route('admissions.store') }}" method="POST" enctype="multipart/form-data" class="relative bg-white shadow-xl rounded-2xl overflow-hidden print:shadow-none print:bg-transparent print:border-none print:rounded-none">
             @csrf
             
             <!-- Background Logo -->
@@ -97,25 +99,44 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <!-- Print-only fields for DOB and Blood Group to preserve original print page design -->
+                    <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Date of Birth</label>
-                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
-                        <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
-                        <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium print:text-xs">{{ old('dob_words') }}</p>
+                        <input type="text" id="print_dob" value="{{ old('dob') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <p id="print_dob_words_text" class="text-xs text-slate-600 mt-1.5 font-medium print:text-xs">{{ old('dob_words') }}</p>
                     </div>
-                    <div>
+                    <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Blood Group</label>
-                        <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
-                            <option value="">Select Blood Group</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
+                        <input type="text" id="print_blood_group" value="{{ old('blood_group') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                    </div>
+
+                    <!-- Screen-only Row for DOB, Blood Group, and Student Photo -->
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 print:hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+                            <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
+                            <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words') }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
+                            <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Student Photo (Passport Size)</label>
+                            <input type="file" name="student_photo" id="student_photo_input" accept="image/*" class="w-full px-4 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <p class="text-xs text-slate-500 mt-1">Allowed: JPG, JPEG, PNG. Max: 2MB.</p>
+                        </div>
                     </div>
                     
                     <div>
@@ -160,21 +181,31 @@
                         <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
-                    <div>
+
+                    <!-- Screen-only Row for PEN, Bank Account, and IFSC -->
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 print:hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">PEN No.</label>
+                            <input type="text" name="pen_no" value="{{ old('pen_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No.</label>
+                            <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code</label>
+                            <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                        </div>
+                    </div>
+
+                    <!-- Print-only fields (to preserve original print page design) -->
+                    <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">PEN No.</label>
-                        <input type="text" name="pen_no" value="{{ old('pen_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
-                    </div>
-                    <div class="print:hidden">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No.</label>
-                        <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    </div>
-                    <div class="print:hidden">
-                        <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code</label>
-                        <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                        <input type="text" value="{{ old('pen_no') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                     <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Account no. & Ifsc</label>
-                        <input type="text" value="{{ old('bank_account_no') ? old('bank_account_no') . ' / ' . old('ifsc_code') : '' }}" class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" value="{{ old('bank_account_no') ? old('bank_account_no') . ' / ' . old('ifsc_code') : '' }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
                 </div>
             </div>
@@ -438,8 +469,14 @@
                         </div>
                     </div>
 
-                    <div class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start">
-                        <span>Student's<br>Photo</span>
+                    <div id="photo_preview_box" class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start overflow-hidden">
+                        @if(session('student_photo'))
+                            <img id="photo_preview" src="{{ asset(session('student_photo')) }}" alt="Student Photo" class="w-full h-full object-cover">
+                            <span id="photo_placeholder_text" class="hidden">Student's<br>Photo</span>
+                        @else
+                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-cover">
+                            <span id="photo_placeholder_text">Student's<br>Photo</span>
+                        @endif
                     </div>
                 </div>
 
@@ -697,6 +734,53 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSelectPlaceholder(sel);
         sel.addEventListener('change', () => updateSelectPlaceholder(sel));
     });
+
+    // Live preview for selected student photo
+    const photoInput = document.getElementById('student_photo_input');
+    if (photoInput) {
+        photoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('photo_preview');
+                    const placeholder = document.getElementById('photo_placeholder_text');
+                    if (preview && placeholder) {
+                        preview.src = event.target.result;
+                        preview.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Sync screen inputs to print-only inputs for DOB and Blood Group
+    const bloodSelect = document.querySelector('select[name="blood_group"]');
+    const printBloodInput = document.getElementById('print_blood_group');
+    if (bloodSelect && printBloodInput) {
+        printBloodInput.value = bloodSelect.value;
+        bloodSelect.addEventListener('change', function() {
+            printBloodInput.value = this.value;
+        });
+    }
+
+    const dobSelect = document.getElementById('dob_input');
+    const printDobInput = document.getElementById('print_dob');
+    if (dobSelect && printDobInput) {
+        printDobInput.value = dobSelect.value;
+        dobSelect.addEventListener('change', function() {
+            printDobInput.value = this.value;
+            setTimeout(() => {
+                const text = document.getElementById('dob_words_text');
+                const printText = document.getElementById('print_dob_words_text');
+                if (text && printText) {
+                    printText.innerText = text.innerText;
+                }
+            }, 50);
+        });
+    }
 });
 </script>
 

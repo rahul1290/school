@@ -98,28 +98,106 @@
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 opacity-80"></div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <div class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 font-semibold tracking-wider text-sm uppercase">Celebrating Academic Excellence</div>
-                <p class="text-xl text-slate-600 leading-relaxed font-light mb-2">
-                    One of Our Bright Students is Pursuing MBBS.
-                </p>
-                <p class="text-base text-slate-600 leading-relaxed font-light">
-                    We are incredibly proud of our students whose dedication continues to set new benchmarks for academic success. Pursuing an MBBS is no small feat; it requires relentless perseverance and an unwavering commitment to serving humanity. At Gyanoday Vidya Niketan, we foster an enriching environment that combines rigorous textbook learning with critical thinking and personalized mentorship. Our holistic approach ensures every student is equipped to chase their most ambitious dreams. Seeing our alumni excel in highly competitive national examinations and secure placements in top medical institutions fills us with immense pride. They prove that with true determination, the sky is the limit.
-                </p>
-            </div>
-            <div class="relative group max-w-md mx-auto w-full lg:ml-auto">
-                <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] bg-slate-100 flex items-center justify-center">
-                    <img src="{{ asset('images/achivers/ach1.jpeg') }}" alt="Students learning" class="w-full h-auto object-contain rounded-3xl">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+        @if(isset($sections['excellence']) && $sections['excellence']->images->count() > 1)
+            <!-- Alpine.js Slider for multiple entries -->
+            <div x-data="{ active: 0, total: {{ $sections['excellence']->images->count() }} }" x-init="setInterval(() => { active = (active + 1) % total }, 6000)" class="relative pb-16">
+                @foreach($sections['excellence']->images as $index => $item)
+                    <div x-show="active === {{ $index }}" 
+                         x-transition:enter="transition ease-out duration-700"
+                         x-transition:enter-start="opacity-0 transform translate-x-8"
+                         x-transition:enter-end="opacity-100 transform translate-x-0"
+                         x-transition:leave="transition ease-in duration-300 absolute inset-0"
+                         x-transition:leave-start="opacity-100 transform translate-x-0"
+                         x-transition:leave-end="opacity-0 transform -translate-x-8"
+                         class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        
+                        <div class="space-y-6">
+                            <div class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 font-semibold tracking-wider text-sm uppercase" style="{{ !empty($sections['excellence']->title_font) ? "font-family: '".$sections['excellence']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['excellence']->title_color) ? "color: ".$sections['excellence']->title_color." !important;" : '' }}">
+                                {{ $sections['excellence']->title ?? 'Celebrating Academic Excellence' }}
+                            </div>
+                            <p class="text-xl text-slate-600 leading-relaxed font-light mb-2">
+                                {{ $item->title }}
+                            </p>
+                            <p class="text-base text-slate-600 leading-relaxed font-light">
+                                {{ $item->description }}
+                            </p>
+                        </div>
+                        
+                        <div class="relative group max-w-md mx-auto w-full lg:ml-auto">
+                            <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] bg-slate-100 flex items-center justify-center">
+                                <img src="{{ asset($item->image_path) }}" alt="{{ $item->student_name ?? 'Student Photo' }}" class="w-full h-auto object-contain rounded-3xl">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                            </div>
+                            <p class="text-xl text-center text-slate-800 leading-relaxed font-light mt-4 mb-2">
+                                {{ $item->student_name }}
+                            </p>
+                            <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-orange-100 rounded-full z-0 animate-pulse"></div>
+                            <div class="absolute -top-8 -right-8 w-24 h-24 bg-indigo-100 rounded-full z-0 delay-150 animate-pulse"></div>
+                        </div>
+                    </div>
+                @endforeach
+
+                <!-- Carousel Controls (Dot indicators) -->
+                <div class="flex justify-center gap-2 mt-8 absolute bottom-0 left-0 right-0 z-20">
+                    <template x-for="i in Array.from({length: total}, (_, i) => i)">
+                        <button @click="active = i" 
+                                :class="active === i ? 'bg-orange-600 w-6' : 'bg-slate-300 hover:bg-slate-400 w-2'" 
+                                class="h-2 rounded-full transition-all duration-300"></button>
+                    </template>
                 </div>
-                <p class="text-xl text-center text-slate-800 leading-relaxed font-light mb-2">
-                    Anurag Tandon
-                </p>
-                <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-orange-100 rounded-full z-0 animate-pulse"></div>
-                <div class="absolute -top-8 -right-8 w-24 h-24 bg-indigo-100 rounded-full z-0 delay-150 animate-pulse"></div>
             </div>
-        </div>
+        @elseif(isset($sections['excellence']) && $sections['excellence']->images->count() === 1)
+            @php $item = $sections['excellence']->images->first(); @endphp
+            <!-- Single entry: show exactly as is now -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 font-semibold tracking-wider text-sm uppercase" style="{{ !empty($sections['excellence']->title_font) ? "font-family: '".$sections['excellence']->title_font."', sans-serif !important;" : '' }} {{ !empty($sections['excellence']->title_color) ? "color: ".$sections['excellence']->title_color." !important;" : '' }}">
+                        {{ $sections['excellence']->title ?? 'Celebrating Academic Excellence' }}
+                    </div>
+                    <p class="text-xl text-slate-600 leading-relaxed font-light mb-2">
+                        {{ $item->title }}
+                    </p>
+                    <p class="text-base text-slate-600 leading-relaxed font-light">
+                        {{ $item->description }}
+                    </p>
+                </div>
+                <div class="relative group max-w-md mx-auto w-full lg:ml-auto">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] bg-slate-100 flex items-center justify-center">
+                        <img src="{{ asset($item->image_path) }}" alt="{{ $item->student_name ?? 'Student Photo' }}" class="w-full h-auto object-contain rounded-3xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                    </div>
+                    <p class="text-xl text-center text-slate-800 leading-relaxed font-light mt-4 mb-2">
+                        {{ $item->student_name }}
+                    </p>
+                    <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-orange-100 rounded-full z-0 animate-pulse"></div>
+                    <div class="absolute -top-8 -right-8 w-24 h-24 bg-indigo-100 rounded-full z-0 delay-150 animate-pulse"></div>
+                </div>
+            </div>
+        @else
+            <!-- Fallback Static Default -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 font-semibold tracking-wider text-sm uppercase">Celebrating Academic Excellence</div>
+                    <p class="text-xl text-slate-600 leading-relaxed font-light mb-2">
+                        One of Our Bright Students is Pursuing MBBS.
+                    </p>
+                    <p class="text-base text-slate-600 leading-relaxed font-light">
+                        We are incredibly proud of our students whose dedication continues to set new benchmarks for academic success. Pursuing an MBBS is no small feat; it requires relentless perseverance and an unwavering commitment to serving humanity. At Gyanoday Vidya Niketan, we foster an enriching environment that combines rigorous textbook learning with critical thinking and personalized mentorship. Our holistic approach ensures every student is equipped to chase their most ambitious dreams. Seeing our alumni excel in highly competitive national examinations and secure placements in top medical institutions fills us with immense pride. They prove that with true determination, the sky is the limit.
+                    </p>
+                </div>
+                <div class="relative group max-w-md mx-auto w-full lg:ml-auto">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 transform transition-transform duration-700 group-hover:scale-[1.02] bg-slate-100 flex items-center justify-center">
+                        <img src="{{ asset('images/achivers/ach1.jpeg') }}" alt="Students learning" class="w-full h-auto object-contain rounded-3xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+                    </div>
+                    <p class="text-xl text-center text-slate-800 leading-relaxed font-light mt-4 mb-2">
+                        Anurag Tandon
+                    </p>
+                    <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-orange-100 rounded-full z-0 animate-pulse"></div>
+                    <div class="absolute -top-8 -right-8 w-24 h-24 bg-indigo-100 rounded-full z-0 delay-150 animate-pulse"></div>
+                </div>
+            </div>
+        @endif
     </div>
 </section>
 

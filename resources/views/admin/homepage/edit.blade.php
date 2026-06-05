@@ -99,17 +99,35 @@
         </div>
 
         <div class="bg-white shadow rounded-lg mb-8 p-6 border border-slate-100">
-            <h2 class="text-xl font-bold text-slate-900 mb-6 font-['Outfit']">Add New Image</h2>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 font-['Outfit']">Add New Image/Achiever</h2>
             
-            <form action="{{ route('admin.homepage.uploadImage', $section) }}" method="POST" enctype="multipart/form-data" class="flex gap-4 items-end">
+            <form action="{{ route('admin.homepage.uploadImage', $section) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
-                <div class="flex-grow">
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Select Image</label>
-                    <input type="file" name="image" required class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Select Image</label>
+                        <input type="file" name="image" required class="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white">
+                    </div>
+                    @if($section->identifier === 'excellence')
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Student Name</label>
+                            <input type="text" name="student_name" placeholder="e.g. Anurag Tandon" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Achievement Title / Subtitle</label>
+                            <input type="text" name="student_title" placeholder="e.g. One of Our Bright Students is Pursuing MBBS." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Achievement Description</label>
+                            <textarea name="student_description" rows="3" placeholder="Enter details..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+                        </div>
+                    @endif
                 </div>
-                <button type="submit" class="bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
-                    Upload
-                </button>
+                <div>
+                    <button type="submit" class="bg-green-600 text-white font-medium py-2 px-6 rounded-lg hover:bg-green-700 transition-colors">
+                        Upload & Add
+                    </button>
+                </div>
             </form>
         </div>
 
@@ -137,6 +155,23 @@
                                         <label class="text-xs font-medium text-slate-700">Active (Show):</label>
                                         <input type="checkbox" name="images[{{ $img->id }}][is_active]" value="1" {{ $img->is_active ? 'checked' : '' }} class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
                                     </div>
+
+                                    @if($section->identifier === 'excellence')
+                                        <div class="border-t border-slate-200 pt-2 mt-2 space-y-2">
+                                            <div>
+                                                <label class="text-[10px] font-medium text-slate-500 uppercase">Student Name:</label>
+                                                <input type="text" name="images[{{ $img->id }}][student_name]" value="{{ $img->student_name }}" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500">
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-medium text-slate-500 uppercase">Student Title:</label>
+                                                <input type="text" name="images[{{ $img->id }}][student_title]" value="{{ $img->title }}" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500">
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-medium text-slate-500 uppercase">Description:</label>
+                                                <textarea name="images[{{ $img->id }}][student_description]" rows="3" class="w-full px-2 py-1 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-indigo-500">{{ $img->description }}</textarea>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="flex justify-between items-center border-t border-slate-200 pt-2 mt-2">
                                         <label class="text-xs font-medium text-red-600">Delete Image:</label>

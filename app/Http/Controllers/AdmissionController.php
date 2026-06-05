@@ -46,10 +46,22 @@ class AdmissionController extends Controller
             'address_line_2' => 'nullable|string|max:255',
             'state' => 'required|string|max:255',
             'pin_code' => 'required|string|max:255',
+            'student_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('student_photo')) {
+            $file = $request->file('student_photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/photos'), $filename);
+            $validatedData['student_photo'] = 'uploads/photos/' . $filename;
+        }
 
         Admission::create($validatedData);
 
-        return redirect()->back()->with('success', 'Form submitted successfully!')->withInput();
+        $redirect = redirect()->back()->with('success', 'Form submitted successfully!')->withInput();
+        if (isset($validatedData['student_photo'])) {
+            $redirect->with('student_photo', $validatedData['student_photo']);
+        }
+        return $redirect;
     }
 }

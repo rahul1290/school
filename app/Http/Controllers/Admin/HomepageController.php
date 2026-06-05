@@ -40,9 +40,17 @@ class HomepageController extends Controller
 
     public function uploadImage(Request $request, Section $section)
     {
-        $request->validate([
+        $rules = [
             'image' => 'required|image|max:2048',
-        ]);
+        ];
+
+        if ($section->identifier === 'excellence') {
+            $rules['student_name'] = 'nullable|string|max:255';
+            $rules['student_title'] = 'nullable|string|max:255';
+            $rules['student_description'] = 'nullable|string';
+        }
+
+        $request->validate($rules);
 
         $file = $request->file('image');
         $filename = time() . '_' . $file->getClientOriginalName();
@@ -51,11 +59,19 @@ class HomepageController extends Controller
 
         $sortOrder = $section->images()->max('sort_order') + 1;
 
-        $section->images()->create([
+        $imageData = [
             'image_path' => 'images/sections/' . $filename,
             'sort_order' => $sortOrder,
             'is_active' => true,
-        ]);
+        ];
+
+        if ($section->identifier === 'excellence') {
+            $imageData['student_name'] = $request->input('student_name');
+            $imageData['title'] = $request->input('student_title');
+            $imageData['description'] = $request->input('student_description');
+        }
+
+        $section->images()->create($imageData);
 
         return redirect()->back()->with('success', 'your data has been stored');
     }
@@ -73,10 +89,18 @@ class HomepageController extends Controller
                     }
                     $sectionImage->delete();
                 } else {
-                    $sectionImage->update([
+                    $updateData = [
                         'sort_order' => $data['sort_order'] ?? 0,
                         'is_active' => isset($data['is_active']) ? true : false,
-                    ]);
+                    ];
+
+                    if ($section->identifier === 'excellence') {
+                        $updateData['student_name'] = $data['student_name'] ?? null;
+                        $updateData['title'] = $data['student_title'] ?? null;
+                        $updateData['description'] = $data['student_description'] ?? null;
+                    }
+
+                    $sectionImage->update($updateData);
                 }
             }
         }
