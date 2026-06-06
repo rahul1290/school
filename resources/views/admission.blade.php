@@ -72,11 +72,11 @@
                 <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg print:bg-transparent print:p-0 print:border-b print:border-slate-800 print:text-lg">1. Student Information</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-4">
                     <div class="md:col-span-2 print:col-span-2 flex gap-4">
-                        <div class="flex-grow">
+                        <div class="w-1/2">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Name</label>
                             <input type="text" name="name" value="{{ old('name') }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                         </div>
-                        <div class="w-1/3">
+                        <div class="w-1/2">
                             <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Class</label>
                             <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:appearance-none print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none bg-white">
                                 <option value="">Select Class</option>
@@ -110,33 +110,26 @@
                         <input type="text" id="print_blood_group" value="{{ old('blood_group') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
-                    <!-- Screen-only Row for DOB, Blood Group, and Student Photo -->
-                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 print:hidden">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
-                            <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
-                            <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
-                            <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words') }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
-                            <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
-                                <option value="">Select Blood Group</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Student Photo (Passport Size)</label>
-                            <input type="file" name="student_photo" id="student_photo_input" accept="image/*" class="w-full px-4 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
-                            <p class="text-xs text-slate-500 mt-1">Allowed: JPG, JPEG, PNG. Max: 2MB.</p>
-                        </div>
+                    <!-- Screen-only Row for DOB and Blood Group -->
+                    <div class="print:hidden">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Date of Birth</label>
+                        <input type="date" name="dob" value="{{ old('dob') }}" required id="dob_input" onchange="const words = convertDateToWords(this.value); document.getElementById('dob_words').value = words; document.getElementById('dob_words_text').innerText = words;" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <input type="hidden" name="dob_words" value="{{ old('dob_words') }}" id="dob_words" required>
+                        <p id="dob_words_text" class="text-sm text-slate-600 mt-1.5 font-medium">{{ old('dob_words') }}</p>
+                    </div>
+                    <div class="print:hidden">
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Blood Group</label>
+                        <select name="blood_group" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
                     </div>
                     
                     <div>
@@ -172,22 +165,34 @@
                         </select>
                     </div>
 
-                    <div>
+                    <!-- Print-only fields for Aadhaar and APAAR ID to preserve original print page design -->
+                    <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">Aadhaar No.</label>
-                        <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" value="{{ old('aadhaar_no') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
-                    <div>
+                    <div class="hidden print:block">
                         <label class="block text-sm font-medium text-slate-700 mb-1 print:text-xs">APAAR ID</label>
-                        <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
+                        <input type="text" value="{{ old('apaar_id') }}" disabled class="w-full print:border-0 print:border-b print:border-slate-400 print:px-0 print:rounded-none">
                     </div>
 
-
-                    <!-- Screen-only Row for PEN, Bank Account, and IFSC -->
+                    <!-- Screen-only Row for Aadhaar, APAAR, and PEN -->
                     <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 print:hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Aadhaar No.</label>
+                            <input type="number" name="aadhaar_no" value="{{ old('aadhaar_no') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">APAAR ID</label>
+                            <input type="text" name="apaar_id" value="{{ old('apaar_id') }}" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">PEN No.</label>
                             <input type="text" name="pen_no" value="{{ old('pen_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                         </div>
+                    </div>
+
+                    <!-- Screen-only Row for Bank Account, IFSC, and Student Photo -->
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6 print:hidden">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Bank Account No.</label>
                             <input type="text" name="bank_account_no" value="{{ old('bank_account_no') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
@@ -195,6 +200,11 @@
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">IFSC Code</label>
                             <input type="text" name="ifsc_code" value="{{ old('ifsc_code') }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-uppercase" placeholder="e.g. SBIN0001234">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Student Photo (Passport Size)</label>
+                            <input type="file" name="student_photo" id="student_photo_input" accept="image/*" class="w-full px-4 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <p class="text-xs text-slate-500 mt-1">Allowed: JPG, JPEG, PNG. Max: 2MB.</p>
                         </div>
                     </div>
 

@@ -43,11 +43,11 @@
                     <h2 class="text-xl font-bold text-slate-800 mb-6 bg-slate-100 p-3 rounded-lg">1. Student Information</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2 flex gap-4">
-                            <div class="flex-grow">
+                            <div class="w-1/2">
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Name</label>
                                 <input type="text" name="name" value="{{ old('name', $admission->name) }}" pattern="[a-zA-Z\s\.\'\-]+" title="Only characters are allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '');" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                             </div>
-                            <div class="w-1/3">
+                            <div class="w-1/2">
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Class</label>
                                 <select name="class" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white" id="classSelect">
                                     <option value="">Select Class</option>
