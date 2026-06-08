@@ -129,9 +129,9 @@
                                 <div class="flex items-center gap-4">
                                     <div id="photo_preview_box" class="w-16 h-20 border border-slate-300 rounded-lg overflow-hidden flex items-center justify-center bg-slate-50 flex-shrink-0">
                                         @if($admission->student_photo)
-                                            <img id="photo_preview" src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-cover">
+                                            <img id="photo_preview" src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-contain">
                                         @else
-                                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-cover">
+                                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-contain">
                                             <span id="photo_placeholder_text" class="text-[10px] text-slate-400 font-bold uppercase">No Photo</span>
                                         @endif
                                     </div>

@@ -283,7 +283,7 @@
 
                     <div class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start overflow-hidden">
                         @if($admission->student_photo)
-                            <img src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-cover">
+                            <img src="{{ asset($admission->student_photo) }}" alt="Student Photo" class="w-full h-full object-contain">
                         @else
                             <span>Student's<br>Photo</span>
                         @endif

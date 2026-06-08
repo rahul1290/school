@@ -481,10 +481,10 @@
 
                     <div id="photo_preview_box" class="flex-shrink-0 w-[3.5cm] h-[4.5cm] border-2 border-dashed border-slate-400 flex flex-col items-center justify-center text-center p-2 text-xs text-slate-500 font-bold uppercase tracking-wider bg-white rounded-lg print:border-slate-800 print:bg-transparent mt-4 md:-mt-8 print:-mt-8 self-start overflow-hidden">
                         @if(session('student_photo'))
-                            <img id="photo_preview" src="{{ asset(session('student_photo')) }}" alt="Student Photo" class="w-full h-full object-cover">
+                            <img id="photo_preview" src="{{ asset(session('student_photo')) }}" alt="Student Photo" class="w-full h-full object-contain">
                             <span id="photo_placeholder_text" class="hidden">Student's<br>Photo</span>
                         @else
-                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-cover">
+                            <img id="photo_preview" src="" alt="Student Photo" class="hidden w-full h-full object-contain">
                             <span id="photo_placeholder_text">Student's<br>Photo</span>
                         @endif
                     </div>
