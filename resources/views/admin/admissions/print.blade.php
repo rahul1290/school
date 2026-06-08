@@ -500,4 +500,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @endsection
 
-<script>window.onload = function() { window.print(); }</script>
+<script>window.onload = function() { if (window.self === window.top) { window.print(); } }</script>

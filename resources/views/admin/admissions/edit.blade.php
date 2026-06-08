@@ -10,6 +10,10 @@
             <a href="{{ route('admin.admissions.index') }}" class="text-indigo-600 hover:text-indigo-900 font-semibold flex items-center gap-2">
                 &larr; Back to Admissions List
             </a>
+            <button type="button" onclick="printAdmission()" class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow hover:bg-emerald-700 hover:-translate-y-0.5 transition-all text-sm flex items-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                Print Form
+            </button>
         </div>
 
         <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
@@ -336,10 +340,14 @@
 
                 <!-- Action Buttons -->
                 <div class="relative z-10 p-8 bg-slate-100 flex flex-col sm:flex-row justify-end gap-4 border-t">
-                    <a href="{{ route('admin.admissions.index') }}" class="px-8 py-3 bg-white border border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all text-center">
+                    <a href="{{ route('admin.admissions.index') }}" class="px-8 py-3 bg-white border border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-50 transition-all text-center flex items-center justify-center">
                         Cancel
                     </a>
-                    <button type="submit" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 hover:-translate-y-0.5 transition-all text-center">
+                    <button type="button" onclick="printAdmission()" class="px-8 py-3 bg-emerald-600 text-white font-bold rounded-xl shadow-lg hover:bg-emerald-700 hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        Print Form
+                    </button>
+                    <button type="submit" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg hover:bg-indigo-700 hover:-translate-y-0.5 transition-all text-center flex items-center justify-center">
                         Save Changes
                     </button>
                 </div>
@@ -378,6 +386,26 @@ function convertDateToWords(dateString) {
     
     const yearStr = numToWords(year).trim();
     return `${dayStr} of ${month} ${yearStr}`;
+}
+
+function printAdmission() {
+    let iframe = document.getElementById('print_frame');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'print_frame';
+        iframe.style.position = 'absolute';
+        iframe.style.width = '0px';
+        iframe.style.height = '0px';
+        iframe.style.border = 'none';
+        document.body.appendChild(iframe);
+    }
+    iframe.onload = function() {
+        setTimeout(function() {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 200);
+    };
+    iframe.src = "{{ route('admin.admissions.print', $admission) }}";
 }
 </script>
 
