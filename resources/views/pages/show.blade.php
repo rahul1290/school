@@ -58,6 +58,60 @@
         <div class="w-full px-6 md:px-12 lg:px-24 py-12 lg:py-16 prose prose-lg prose-slate max-w-none">
             {!! $page->content !!}
         </div>
+
+        @if($page->slug === 'about-us')
+        <!-- Sub-menu links grid with descriptions -->
+        <div class="w-full px-6 md:px-12 lg:px-24 pb-20">
+            <div class="max-w-5xl mx-auto">
+                <h3 class="text-2xl font-bold text-slate-800 mb-8 border-b border-slate-100 pb-4 font-['Outfit']">Explore More About Gyanoday Vidya Niketan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Our History Card -->
+                    <a href="{{ url('/aboutus/our-history') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-3">
+                            <span class="text-3xl p-3 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-sm">📜</span>
+                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Our History</h4>
+                        </div>
+                        <p class="text-slate-600 group-hover:text-orange-50 text-sm leading-relaxed">
+                            Discover our rich heritage, founding milestones, and how we grew to become a premier educational institution in Deorbija.
+                        </p>
+                    </a>
+
+                    <!-- Campus & Infrastructure Card -->
+                    <a href="{{ url('/aboutus/campus') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-3">
+                            <span class="text-3xl p-3 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-sm">🏫</span>
+                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Campus & Infrastructure</h4>
+                        </div>
+                        <p class="text-slate-600 group-hover:text-orange-50 text-sm leading-relaxed">
+                            Explore our state-of-the-art smart classrooms, advanced computer and science laboratories, library, and sports facilities.
+                        </p>
+                    </a>
+
+                    <!-- Achievements Card -->
+                    <a href="{{ url('/aboutus/achievements') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-3">
+                            <span class="text-3xl p-3 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-sm">🏆</span>
+                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Achievements</h4>
+                        </div>
+                        <p class="text-slate-600 group-hover:text-orange-50 text-sm leading-relaxed">
+                            Read about our academic records, board results, athletic medals, and over 55 student selections into Navodaya Vidyalaya.
+                        </p>
+                    </a>
+
+                    <!-- Rules & Regulations Card -->
+                    <a href="{{ url('/aboutus/rules-and-regulations') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div class="flex items-center gap-4 mb-3">
+                            <span class="text-3xl p-3 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-sm">📋</span>
+                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Rules & Regulations</h4>
+                        </div>
+                        <p class="text-slate-600 group-hover:text-orange-50 text-sm leading-relaxed">
+                            Understand our guidelines regarding student discipline, dress code standards, academic attendance, and fee structures.
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @endif
         @endif
 
     </div>

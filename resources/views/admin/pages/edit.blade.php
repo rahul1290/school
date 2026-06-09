@@ -14,7 +14,15 @@
 
         <div class="bg-white shadow-xl rounded-2xl overflow-hidden mb-8">
             <div class="p-8 border-b border-slate-100 bg-slate-800">
-                <h2 class="text-2xl font-bold text-white">Edit Page: {{ $page->title }} (/{{ $page->slug }})</h2>
+                <h2 class="text-2xl font-bold text-white">Edit Page: {{ $page->title }} (
+                    @if($page->slug === 'about-us')
+                        /about-us
+                    @elseif(in_array($page->slug, ['our-history', 'campus', 'achievements', 'rules-and-regulations']))
+                        /aboutus/{{ $page->slug }}
+                    @else
+                        /{{ $page->slug }}
+                    @endif
+                )</h2>
             </div>
 
             @if($errors->any())
@@ -27,7 +35,7 @@
                 </div>
             @endif
 
-            @if(session('success') && session('success') !== 'your data has been stored')
+            @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 m-8 mb-0 rounded relative" role="alert">
                     <span class="block sm:inline">{{ session('success') }}</span>
                 </div>

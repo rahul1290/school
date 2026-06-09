@@ -82,12 +82,66 @@
     </style>
     @stack('styles')
 </head>
-<body class="antialiased min-h-screen flex flex-col relative pb-20 bg-slate-50 selection:bg-indigo-500 selection:text-white">
+<body class="antialiased min-h-screen flex flex-col relative pt-0 pb-16 md:pb-20 bg-slate-50 selection:bg-indigo-500 selection:text-white">
     
     <!-- Global Background Watermark -->
     <div class="fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.03] print:hidden">
         <img src="{{ asset('images/logo.png') }}" alt="Background Watermark" class="w-[90%] md:w-[60%] max-w-4xl h-auto object-contain grayscale">
     </div>
+
+    <!-- Mobile Header (Bottom) with Hamburger Menu -->
+    <header x-data="{ open: false }" class="block md:hidden fixed bottom-0 left-0 w-full z-50 bg-gradient-to-r from-orange-500 to-red-500 border-t border-orange-600 shadow-lg pb-safe">
+        <div class="px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain bg-white rounded-full p-1 shadow-sm">
+                <div>
+                    <h1 class="text-lg font-bold text-white leading-tight font-['Outfit']">Gyanoday Vidya Niketan</h1>
+                </div>
+            </div>
+            
+            <!-- Hamburger Button (Three Lines) -->
+            <button @click="open = !open" type="button" class="text-white hover:text-orange-200 focus:outline-none p-1.5 cursor-pointer">
+                <svg class="w-6 h-6 transition-transform duration-300" :class="open ? 'rotate-90' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Hamburger Icon Lines (hidden when open) -->
+                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <!-- Close Icon X (shown when open) -->
+                    <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" style="display: none;"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Navigation Menu (Opening Upward) -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 translate-y-4"
+             style="display: none;"
+             class="absolute bottom-full mb-1 left-0 w-full bg-white border-t border-slate-100 shadow-2xl py-3 px-4 space-y-1.5 rounded-t-2xl">
+            <a href="{{ url('/') }}" class="block px-4 py-2.5 rounded-xl text-base {{ request()->is('/') ? 'bg-orange-50 text-orange-600 font-bold' : 'text-slate-700 hover:bg-slate-50 font-semibold' }}">Home</a>
+            
+            <!-- About subpages rendered inline as an accordion -->
+            <div x-data="{ aboutOpen: {{ request()->is('about-us') || request()->is('aboutus/*') ? 'true' : 'false' }} }" class="space-y-1">
+                <div class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700">
+                    <a href="{{ url('/about-us') }}" class="text-base font-semibold flex-grow">About Us</a>
+                    <button @click="aboutOpen = !aboutOpen" type="button" class="p-1 focus:outline-none cursor-pointer">
+                        <svg class="w-4 h-4 transition-transform duration-200" :class="aboutOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </button>
+                </div>
+                <div x-show="aboutOpen" x-transition class="pl-4 space-y-1 border-l-2 border-orange-100 ml-4 mt-0.5" style="display: none;">
+                    <a href="{{ url('/aboutus/our-history') }}" class="block px-4 py-2 rounded-lg text-sm {{ request()->is('aboutus/our-history') ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-600 hover:bg-slate-50 font-semibold' }}">Our History</a>
+                    <a href="{{ url('/aboutus/campus') }}" class="block px-4 py-2 rounded-lg text-sm {{ request()->is('aboutus/campus') ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-600 hover:bg-slate-50 font-semibold' }}">Campus</a>
+                    <a href="{{ url('/aboutus/achievements') }}" class="block px-4 py-2 rounded-lg text-sm {{ request()->is('aboutus/achievements') ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-600 hover:bg-slate-50 font-semibold' }}">Achievements</a>
+                    <a href="{{ url('/aboutus/rules-and-regulations') }}" class="block px-4 py-2 rounded-lg text-sm {{ request()->is('aboutus/rules-and-regulations') ? 'text-orange-600 font-bold bg-orange-50/50' : 'text-slate-600 hover:bg-slate-50 font-semibold' }}">Rules & Regulations</a>
+                </div>
+            </div>
+
+            <a href="{{ url('/admission') }}" class="block px-4 py-2.5 rounded-xl text-base {{ request()->is('admission') ? 'bg-orange-50 text-orange-600 font-bold' : 'text-slate-700 hover:bg-slate-50 font-semibold' }}">Admission</a>
+            <a href="{{ url('/contact') }}" class="block px-4 py-2.5 rounded-xl text-base {{ request()->is('contact') ? 'bg-orange-50 text-orange-600 font-bold' : 'text-slate-700 hover:bg-slate-50 font-semibold' }}">Contact</a>
+        </div>
+    </header>
 
     <!-- Header / Bottom Nav with Glassmorphism -->
     <header class="hidden md:block fixed bottom-0 left-0 w-full z-50 bg-gradient-to-r from-orange-500 to-red-500 border-t border-orange-600 shadow-xl transition-all duration-300">
@@ -102,7 +156,22 @@
             
             <nav class="hidden md:flex gap-8 items-center">
                 <a href="{{ url('/') }}" class="pb-1 border-b-2 transition-all {{ request()->is('/') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Home</a>
-                <a href="{{ url('/about-us') }}" class="pb-1 border-b-2 transition-all {{ request()->is('about-us') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">About Us</a>
+                
+                <!-- About Dropdown Menu -->
+                <div class="relative group py-2">
+                    <a href="{{ url('/about-us') }}" class="pb-1 border-b-2 transition-all flex items-center gap-1 cursor-pointer {{ request()->is('about-us') || request()->is('aboutus/*') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">
+                        <span>About Us</span>
+                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </a>
+                    <!-- Dropdown Items (Opening Upward) -->
+                    <div class="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-56 rounded-2xl bg-white/95 backdrop-blur-md shadow-2xl py-2.5 border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 transform translate-y-2 group-hover:translate-y-0">
+                        <a href="{{ url('/aboutus/our-history') }}" class="block px-5 py-2.5 text-sm {{ request()->is('aboutus/our-history') ? 'text-orange-600 bg-orange-50 font-bold' : 'text-slate-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white transition-colors font-semibold' }}">Our History</a>
+                        <a href="{{ url('/aboutus/campus') }}" class="block px-5 py-2.5 text-sm {{ request()->is('aboutus/campus') ? 'text-orange-600 bg-orange-50 font-bold' : 'text-slate-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white transition-colors font-semibold' }}">Campus</a>
+                        <a href="{{ url('/aboutus/achievements') }}" class="block px-5 py-2.5 text-sm {{ request()->is('aboutus/achievements') ? 'text-orange-600 bg-orange-50 font-bold' : 'text-slate-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white transition-colors font-semibold' }}">Achievements</a>
+                        <a href="{{ url('/aboutus/rules-and-regulations') }}" class="block px-5 py-2.5 text-sm {{ request()->is('aboutus/rules-and-regulations') ? 'text-orange-600 bg-orange-50 font-bold' : 'text-slate-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-500 hover:text-white transition-colors font-semibold' }}">Rules & Regulations</a>
+                    </div>
+                </div>
+
                 <a href="{{ url('/admission') }}" class="pb-1 border-b-2 transition-all {{ request()->is('admission') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-bold' }}">Admission</a>
                 <a href="{{ url('/contact') }}" class="pb-1 border-b-2 transition-all {{ request()->is('contact') ? 'text-yellow-200 font-bold border-yellow-300' : 'text-white border-transparent hover:text-orange-200 hover:border-orange-200 font-medium' }}">Contact</a>
             </nav>
@@ -149,7 +218,7 @@
     </footer>
 
     <!-- Bottom Sticky Menu -->
-    @include('partials.footer_menu')
+    {{-- @include('partials.footer_menu') --}}
 
     @if(session('success'))
         <script>

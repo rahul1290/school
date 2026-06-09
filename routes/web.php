@@ -59,4 +59,22 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 Route::post('/contact/submit', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
 // Generic Pages (must be at the bottom to avoid catching other routes like /admin)
-Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'show'])->where('slug', 'about-us|contact')->name('pages.show');
+Route::get('/about-us', [App\Http\Controllers\PageController::class, 'show'])
+    ->defaults('slug', 'about-us')
+    ->name('pages.about-us');
+
+Route::get('/aboutus/about-us', function() {
+    return redirect()->route('pages.about-us');
+});
+
+Route::get('/aboutus', function() {
+    return redirect()->route('pages.about-us');
+});
+
+Route::get('/aboutus/{slug}', [App\Http\Controllers\PageController::class, 'show'])
+    ->where('slug', 'our-history|campus|achievements|rules-and-regulations')
+    ->name('pages.subpage');
+
+Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'show'])
+    ->where('slug', 'contact')
+    ->name('pages.show');
