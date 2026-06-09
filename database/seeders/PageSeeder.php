@@ -13,7 +13,7 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'about-us'],
             [
                 'title' => 'About Gyanoday Vidya Niketan Deorbija',
@@ -21,7 +21,7 @@ class PageSeeder extends Seeder
             ]
         );
 
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'contact'],
             [
                 'title' => 'Contact Us',
@@ -113,7 +113,7 @@ class PageSeeder extends Seeder
             ]
         );
 
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'our-history'],
             [
                 'title' => 'Our History',
@@ -121,7 +121,7 @@ class PageSeeder extends Seeder
             ]
         );
 
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'campus'],
             [
                 'title' => 'Our Campus & Infrastructure',
@@ -129,7 +129,7 @@ class PageSeeder extends Seeder
             ]
         );
 
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'achievements'],
             [
                 'title' => 'Academic & Co-curricular Achievements',
@@ -137,7 +137,7 @@ class PageSeeder extends Seeder
             ]
         );
 
-        \App\Models\Page::updateOrCreate(
+        \App\Models\Page::firstOrCreate(
             ['slug' => 'rules-and-regulations'],
             [
                 'title' => 'Rules & Regulations',
