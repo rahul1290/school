@@ -17,7 +17,7 @@ class PageSeeder extends Seeder
             ['slug' => 'about-us'],
             [
                 'title' => 'About Gyanoday Vidya Niketan Deorbija',
-                'content' => '<h2>Our History</h2><p>Gyanoday Vidya Niketan was established with the vision of providing holistic education deeply rooted in traditional values and modern excellence.</p><br><h2>Our Mission</h2><p>The divine destination for learners, where attaining Moksh is the ultimate goal of life. We focus on character building, moral values, and academic excellence.</p>',
+                'content' => '<h2>Establishment & Objectives</h2><p>Gyanoday Vidya Niketan was established with the vision of providing holistic education deeply rooted in traditional values and modern excellence.</p><br><h2>Our Mission</h2><p>The divine destination for learners, where attaining Moksh is the ultimate goal of life. We focus on character building, moral values, and academic excellence.</p>',
             ]
         );
 
@@ -114,9 +114,9 @@ class PageSeeder extends Seeder
         );
 
         \App\Models\Page::firstOrCreate(
-            ['slug' => 'our-history'],
+            ['slug' => 'establishment-objecties'],
             [
-                'title' => 'Our History',
+                'title' => 'Establishment & Objectives',
                 'content' => '<div class="space-y-6 text-slate-700 leading-relaxed"><p class="text-lg font-light text-slate-500">Established with a vision to revolutionize primary and secondary education in Deorbija, Gyanoday Vidya Niketan has grown from humble beginnings into a leading center of academic excellence and character formation.</p><h2>Foundation and Early Years</h2><p>Gyanoday Vidya Niketan was founded with a clear objective: to provide high-quality education to children in the region, combining modern science and technologies with deep-rooted traditional and moral values. Over the years, the institution has successfully bridged the gap between academic brilliance and ethical upbringing.</p><h2>Milestones of Success</h2><p>From producing board toppers to achieving outstanding success in competitive entrance examinations like the Navodaya Vidyalaya selection (where more than 55 students have secured admission), the school’s journey has been marked by continuous improvement and dedication of both our teachers and students.</p></div>',
             ]
         );

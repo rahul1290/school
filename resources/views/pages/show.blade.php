@@ -65,11 +65,11 @@
             <div class="max-w-5xl mx-auto">
                 <h3 class="text-2xl font-bold text-slate-800 mb-8 border-b border-slate-100 pb-4 font-['Outfit']">Explore More About Gyanoday Vidya Niketan</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Our History Card -->
-                    <a href="{{ url('/aboutus/our-history') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <!-- Establishment & Objectives Card -->
+                    <a href="{{ url('/aboutus/establishment-objecties') }}" class="group block p-6 bg-slate-50 hover:bg-gradient-to-br hover:from-orange-500 hover:to-red-500 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                         <div class="flex items-center gap-4 mb-3">
                             <span class="text-3xl p-3 bg-white rounded-xl group-hover:scale-110 transition-transform shadow-sm">📜</span>
-                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Our History</h4>
+                            <h4 class="text-xl font-bold text-slate-900 group-hover:text-white font-['Outfit']">Establishment & Objectives</h4>
                         </div>
                         <p class="text-slate-600 group-hover:text-orange-50 text-sm leading-relaxed">
                             Discover our rich heritage, founding milestones, and how we grew to become a premier educational institution in Deorbija.

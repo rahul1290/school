@@ -72,7 +72,7 @@ Route::get('/aboutus', function() {
 });
 
 Route::get('/aboutus/{slug}', [App\Http\Controllers\PageController::class, 'show'])
-    ->where('slug', 'our-history|campus|achievements|rules-and-regulations')
+    ->where('slug', 'establishment-objecties|campus|achievements|rules-and-regulations')
     ->name('pages.subpage');
 
 Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'show'])

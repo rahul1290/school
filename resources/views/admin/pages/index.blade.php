@@ -33,10 +33,10 @@
                     @php
                         $parentPage = $pages->firstWhere('slug', 'about-us');
                         $childNodes = $pages->filter(function($p) {
-                            return in_array($p->slug, ['our-history', 'campus', 'achievements', 'rules-and-regulations']);
+                            return in_array($p->slug, ['establishment-objecties', 'campus', 'achievements', 'rules-and-regulations']);
                         });
                         $independentPages = $pages->filter(function($p) {
-                            return !in_array($p->slug, ['about-us', 'our-history', 'campus', 'achievements', 'rules-and-regulations']);
+                            return !in_array($p->slug, ['about-us', 'establishment-objecties', 'campus', 'achievements', 'rules-and-regulations']);
                         });
                     @endphp
 

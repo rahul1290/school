@@ -17,7 +17,7 @@
                 <h2 class="text-2xl font-bold text-white">Edit Page: {{ $page->title }} (
                     @if($page->slug === 'about-us')
                         /about-us
-                    @elseif(in_array($page->slug, ['our-history', 'campus', 'achievements', 'rules-and-regulations']))
+                    @elseif(in_array($page->slug, ['establishment-objecties', 'campus', 'achievements', 'rules-and-regulations']))
                         /aboutus/{{ $page->slug }}
                     @else
                         /{{ $page->slug }}
